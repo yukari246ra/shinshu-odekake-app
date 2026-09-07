@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - pgsql
+
     pgsql:
         image: 'postgres:17'
         ports:
@@ -48,9 +49,26 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
+
+    pgadmin4:
+        image: dpage/pgadmin4
+        ports:
+            - 8888:80
+        volumes:
+            - pgadmin4_data:/var/lib/pgadmin
+        environment:
+            PGADMIN_DEFAULT_EMAIL: '${PGADMIN_EMAIL}'
+            PGADMIN_DEFAULT_PASSWORD: '${PGADMIN_PASSWORD}'
+        networks:
+            - sail
+
 networks:
     sail:
         driver: bridge
+
 volumes:
     sail-pgsql:
+        driver: local
+
+    pgadmin4_data:
         driver: local
