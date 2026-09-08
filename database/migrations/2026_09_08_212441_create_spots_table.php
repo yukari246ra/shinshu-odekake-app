@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category')->nullable();
+            $table->string('area')->nullable();
             $table->string('description')->nullable();
             $table->string('address')->nullable();
             $table->string('image_path')->nullable();
