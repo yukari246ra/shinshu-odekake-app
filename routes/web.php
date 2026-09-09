@@ -12,6 +12,9 @@ use App\Livewire\EditPost;
 use App\Livewire\MyPosts;
 use App\Livewire\ShowPosts;
 use App\Livewire\ShowPost;
+use App\Livewire\ShowSpots;
+use App\Livewire\CreateSpot;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +37,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/posts', ShowPosts::class)->name('posts');
+Route::get('/spots', ShowSpots::class)->name('spots');
+Route::get('/spots/create', CreateSpot::class)->name('spots.create');
