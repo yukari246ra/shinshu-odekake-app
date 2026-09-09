@@ -3,9 +3,9 @@
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
-use App\Livewire\Settings\TwoFactor;
+//use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
+//use Laravel\Fortify\Features;
 use App\Livewire\CreatePost;
 use App\Livewire\Dashboard;
 use App\Livewire\EditPost;
@@ -14,7 +14,7 @@ use App\Livewire\ShowPosts;
 use App\Livewire\ShowPost;
 use App\Livewire\ShowSpots;
 use App\Livewire\CreateSpot;
-
+use App\Livewire\ShowSpot;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,8 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/{post}/edit', EditPost::class)->name('posts.edit');
 
     Route::get('/my-posts', MyPosts::class)->name('my-posts');
+    Route::get('/spots/create', CreateSpot::class)->name('spots.create');
 });
 
 Route::get('/posts', ShowPosts::class)->name('posts');
 Route::get('/spots', ShowSpots::class)->name('spots');
-Route::get('/spots/create', CreateSpot::class)->name('spots.create');
+Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
