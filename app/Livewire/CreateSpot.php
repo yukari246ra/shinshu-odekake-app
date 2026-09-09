@@ -3,9 +3,48 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Spot;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 
+#[Title("スポット作成ページ")]
 class CreateSpot extends Component
 {
+    #[Validate("required", message: "スポット名は必須です。")]
+    #[Validate("min:3", message: "スポット名は3文字以上で入力してください。")]
+    public $name = "";
+
+    #[Validate("required", message: "カテゴリは必須です。")]
+    public $category = "";
+
+    #[Validate("required", message: "エリアは必須です。")]
+    public $area = "";
+
+    #[Validate("required", message: "住所は必須です。")]
+    public $address = "";
+
+    #[Validate("required", message: "説明は必須です。")]
+    public $description = "";
+
+    public function save()
+    {
+        $this->validate();
+
+        Spot::create([
+            'name' => $this->name,
+            'category' => $this->category,
+            'area' => $this->area,
+            'address' => $this->address,
+            'description' => $this->description,
+        ]);
+
+        $this->reset(['name', 'category', 'area', 'address', 'description']);
+        session()->flash('status', 'スポットを登録しました！');
+
+        // navigate を使うと Livewire の遷移になる（あなたのプロジェクトと相性◎）
+        return $this->redirect('/spots', navigate: true);
+    }
+
     public function render()
     {
         return view('livewire.create-spot');
