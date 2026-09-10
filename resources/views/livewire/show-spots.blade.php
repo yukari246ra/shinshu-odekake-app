@@ -24,6 +24,12 @@
                 <flux:text class="mt-4">
                     カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
                 </flux:text>
+
+                <!-- ▼ 追加：利用シーン -->
+                <flux:text class="mt-4">
+                    利用シーン: {{ $spot->scene }}
+                </flux:text>
+                <!-- ▲ 追加ここまで -->
             </a>
         </article>
     @endforeach

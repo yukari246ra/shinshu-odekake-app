@@ -21,6 +21,13 @@
                 <span>{{ $spot->created_at->format('y/m/d') }}</span>
             </div>
         </div>
+
+        <!-- ▼ 追加：利用シーン -->
+        <div class="flex items-center text-sm text-slate-500 gap-1 mt-2">
+            <flux:icon.sparkles class="w-4 h-4" />
+            <span>利用シーン：{{ $spot->scene }}</span>
+        </div>
+        <!-- ▲ 追加ここまで -->
     </div>
 
     <div class="text-lg leading-relaxed text-slate-800 dark:text-slate-200 mt-5">

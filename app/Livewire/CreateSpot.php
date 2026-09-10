@@ -26,6 +26,10 @@ class CreateSpot extends Component
     #[Validate("required", message: "説明は必須です。")]
     public $description = "";
 
+    // ▼ 追加：利用シーン（scene）
+    #[Validate("required", message: "利用シーンは必須です。")]
+    public $scene = "";
+
     public function save()
     {
         $this->validate();
@@ -36,12 +40,23 @@ class CreateSpot extends Component
             'area' => $this->area,
             'address' => $this->address,
             'description' => $this->description,
+
+            // ▼ 追加：scene を保存
+            'scene' => $this->scene,
         ]);
 
-        $this->reset(['name', 'category', 'area', 'address', 'description']);
+        // ▼ reset に scene を追加
+        $this->reset([
+            'name',
+            'category',
+            'area',
+            'address',
+            'description',
+            'scene',
+        ]);
+
         session()->flash('status', 'スポットを登録しました！');
 
-        // navigate を使うと Livewire の遷移になる（あなたのプロジェクトと相性◎）
         return $this->redirect('/spots', navigate: true);
     }
 

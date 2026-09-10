@@ -40,6 +40,23 @@
             placeholder="スポットの説明を入力"
         />
 
+        <!-- ▼ 追加：利用シーン -->
+        <flux:select
+            wire:model="scene"
+            label="利用シーン"
+            placeholder="選択してください"
+        >
+            <option value="家族" label="家族" />
+            <option value="カップル" label="カップル" />
+            <option value="友達" label="友達" />
+            <option value="ひとり" label="ひとり" />
+        </flux:select>
+
+        @error('scene')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+        <!-- ▲ 追加ここまで -->
+
         <div class="flex justify-end">
             <flux:button type="submit" variant="primary">
                 登録する
