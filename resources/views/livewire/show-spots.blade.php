@@ -1,4 +1,12 @@
 <div class="space-y-4">
+
+    <!-- ▼ フラッシュメッセージ（削除・更新後に表示される） -->
+    @if (session('status'))
+        <div class="p-4 bg-slate-200 text-slate-700 rounded border border-slate-300">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <flux:heading size="xl" level="1">スポット一覧ページ</flux:heading>
 
     <div class="flex justify-between items-center mb-6 gap-4 mt-6">
@@ -25,11 +33,9 @@
                     カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
                 </flux:text>
 
-                <!-- ▼ 追加：利用シーン -->
                 <flux:text class="mt-4">
                     利用シーン: {{ $spot->scene }}
                 </flux:text>
-                <!-- ▲ 追加ここまで -->
             </a>
         </article>
     @endforeach
