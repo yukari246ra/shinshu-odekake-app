@@ -16,6 +16,7 @@ use App\Livewire\ShowSpots;
 use App\Livewire\CreateSpot;
 use App\Livewire\ShowSpot;
 use App\Livewire\EditSpot;
+use App\Livewire\SearchSpots;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,3 +45,5 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/posts', ShowPosts::class)->name('posts');
 Route::get('/spots', ShowSpots::class)->name('spots');
 Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
+Route::get('/search', SearchSpots::class)->name('spots.search');
+
