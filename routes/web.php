@@ -6,24 +6,33 @@ use App\Livewire\Settings\Profile;
 //use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 //use Laravel\Fortify\Features;
+
 use App\Livewire\CreatePost;
 use App\Livewire\Dashboard;
 use App\Livewire\EditPost;
 use App\Livewire\MyPosts;
 use App\Livewire\ShowPosts;
 use App\Livewire\ShowPost;
+
 use App\Livewire\ShowSpots;
 use App\Livewire\CreateSpot;
 use App\Livewire\ShowSpot;
 use App\Livewire\EditSpot;
 use App\Livewire\SearchSpots;
 
+use App\Livewire\MyPage;   // ★ 追加
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', Dashboard::class)->name('dashboard');
+
+    // ▼ Dashboard は使わないのでコメントアウト
+    // Route::get('dashboard', Dashboard::class)->name('dashboard');
+
+    // ▼ マイページ（追加）
+    Route::get('/mypage', MyPage::class)->name('mypage');
 
     Route::redirect('settings', 'settings/profile');
 
@@ -36,14 +45,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/{post}/edit', EditPost::class)->name('posts.edit');
 
     Route::get('/my-posts', MyPosts::class)->name('my-posts');
+
     Route::get('/spots/create', CreateSpot::class)->name('spots.create');
     Route::get('/spots/{spot}/edit', EditSpot::class)->name('spots.edit');
     Route::delete('/spots/{spot}', [\App\Livewire\EditSpot::class, 'delete'])->name('spots.delete');
-
 });
 
 Route::get('/posts', ShowPosts::class)->name('posts');
 Route::get('/spots', ShowSpots::class)->name('spots');
 Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
 Route::get('/search', SearchSpots::class)->name('spots.search');
-

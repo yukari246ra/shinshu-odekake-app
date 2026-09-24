@@ -73,8 +73,7 @@ return [
     |
     */
 
-    'home' => '/dashboard',
-
+    'home' => '/mypage',
     /*
     |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain

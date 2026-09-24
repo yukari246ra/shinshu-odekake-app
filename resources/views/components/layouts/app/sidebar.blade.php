@@ -7,15 +7,42 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <!-- ロゴ：dashboard → mypage -->
+            <a href="{{ route('mypage') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="pencil" :href="route('posts.create')" :current="request()->routeIs('posts.create')" wire:navigate>{{ __('記事作成ページ') }}</flux:navlist.item>
-                    <flux:navlist.item icon="book-open" :href="route('my-posts')" :current="request()->routeIs('my-posts')" wire:navigate>{{ __('自分の記事一覧') }}</flux:navlist.item>
+
+                    <!-- Dashboard → マイページ -->
+                    <flux:navlist.item
+                        icon="home"
+                        :href="route('mypage')"
+                        :current="request()->routeIs('mypage')"
+                        wire:navigate
+                    >
+                        {{ __('マイページ') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="pencil"
+                        :href="route('posts.create')"
+                        :current="request()->routeIs('posts.create')"
+                        wire:navigate
+                    >
+                        {{ __('記事作成ページ') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="book-open"
+                        :href="route('my-posts')"
+                        :current="request()->routeIs('my-posts')"
+                        wire:navigate
+                    >
+                        {{ __('自分の記事一覧') }}
+                    </flux:navlist.item>
+
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -23,11 +50,11 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/seito-developer/laravel-livewire-v3-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                    {{ __('Repository') }}
                 </flux:navlist.item>
 
                 <flux:navlist.item icon="book-open-text" href="https://github.com/seito-developer/laravel-livewire-v3-starter-kit#readme" target="_blank">
-                {{ __('Documentation') }}
+                    {{ __('Documentation') }}
                 </flux:navlist.item>
             </flux:navlist>
 
