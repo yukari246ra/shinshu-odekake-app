@@ -5,9 +5,12 @@ namespace App\Livewire;
 use App\Models\Spot;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
+use Livewire\WithFileUploads;
 
 class EditSpot extends Component
 {
+    use WithFileUploads;
+
     public Spot $spot;
 
     #[Validate('required|min:3')]
@@ -28,6 +31,10 @@ class EditSpot extends Component
     #[Validate('required')]
     public $description = '';
 
+    // ▼ 追加：新しい画像アップロード用
+    #[Validate('image', message: '画像ファイルを選択してください。')]
+    public $image;
+
     public function mount(Spot $spot)
     {
         $this->spot = $spot;
@@ -45,6 +52,13 @@ class EditSpot extends Component
     {
         $this->validate();
 
+        // ▼ 新しい画像がアップロードされた場合
+        if ($this->image) {
+            $imagePath = $this->image->store('spots', 'public');
+            $this->spot->image_path = $imagePath;
+        }
+
+        // ▼ テキスト項目を更新
         $this->spot->update([
             'name' => $this->name,
             'scene' => $this->scene,
@@ -52,6 +66,7 @@ class EditSpot extends Component
             'category' => $this->category,
             'address' => $this->address,
             'description' => $this->description,
+            'image_path' => $this->spot->image_path, // 画像があれば更新
         ]);
 
         session()->flash('status', 'スポットを更新しました！');
@@ -59,7 +74,6 @@ class EditSpot extends Component
         return $this->redirect('/spots', navigate: true);
     }
 
-    // ★★★ ここを追加 ★★★
     public function delete()
     {
         $this->spot->delete();

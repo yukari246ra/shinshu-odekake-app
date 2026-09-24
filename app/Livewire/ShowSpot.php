@@ -15,6 +15,6 @@ class ShowSpot extends Component
 
     public function render()
     {
-        return view('livewire.show-spot')->title($this->spot->title);
+        return view('livewire.show-spot')->title($this->spot->name);
     }
 }

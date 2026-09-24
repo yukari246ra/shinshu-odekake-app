@@ -10,6 +10,16 @@
             {{ $spot->name }}
         </flux:heading>
 
+        <!-- ▼ 画像表示（追加） -->
+        @if ($spot->image_path)
+            <img
+                src="{{ asset('storage/' . $spot->image_path) }}"
+                alt="{{ $spot->name }}"
+                class="w-full max-h-96 object-cover rounded mb-6"
+            >
+        @endif
+        <!-- ▲ 画像表示ここまで -->
+
         <div class="flex items-center text-sm text-slate-500 gap-4 mb-2">
             <div class="flex item-center gap-1">
                 <flux:icon.map class="w-4 h-4" />
@@ -22,12 +32,12 @@
             </div>
         </div>
 
-        <!-- ▼ 追加：利用シーン -->
+        <!-- ▼ 利用シーン -->
         <div class="flex items-center text-sm text-slate-500 gap-1 mt-2">
             <flux:icon.sparkles class="w-4 h-4" />
             <span>利用シーン：{{ $spot->scene }}</span>
         </div>
-        <!-- ▲ 追加ここまで -->
+        <!-- ▲ 利用シーンここまで -->
     </div>
 
     <div class="text-lg leading-relaxed text-slate-800 dark:text-slate-200 mt-5">

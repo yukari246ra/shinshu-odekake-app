@@ -64,6 +64,29 @@
             placeholder="例：長野県安曇野市…"
         />
 
+        <!-- ▼ 既存画像プレビュー -->
+        @if ($spot->image_path)
+            <div class="mt-4">
+                <flux:text class="font-semibold">現在の画像</flux:text>
+                <img
+                    src="{{ asset('storage/' . $spot->image_path) }}"
+                    alt="現在の画像"
+                    class="w-48 h-48 object-cover rounded mt-2"
+                >
+            </div>
+        @endif
+
+        <!-- ▼ 新しい画像アップロード -->
+        <flux:input
+            type="file"
+            wire:model="image"
+            label="新しい画像（変更する場合のみ）"
+            accept="image/*"
+        />
+        @error('image')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
         <!-- ▼ 説明 -->
         <flux:textarea
             wire:model="description"
@@ -82,7 +105,7 @@
                 更新する
             </flux:button>
 
-            <!-- ▼ 削除ボタン（Flux UIで形を揃える） -->
+            <!-- ▼ 削除ボタン -->
             <form method="POST" action="{{ route('spots.delete', $spot->id) }}">
                 @csrf
                 @method('DELETE')

@@ -88,6 +88,19 @@
         @enderror
 
 
+        <!-- ▼ 画像アップロード（追加） -->
+        <flux:input
+            type="file"
+            wire:model="image"
+            label="画像"
+            accept="image/*"
+        />
+        @error('image')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+        <!-- ▲ 画像アップロードここまで -->
+
+
         <!-- ▼ 説明 -->
         <flux:textarea
             wire:model="description"
@@ -107,4 +120,3 @@
         </div>
     </form>
 </div>
-
