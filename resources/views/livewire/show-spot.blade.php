@@ -10,6 +10,12 @@
             {{ $spot->name }}
         </flux:heading>
 
+        <!-- ▼ お気に入りボタン（追加） -->
+        <div class="mb-4">
+            <livewire:favorite-toggle :spotId="$spot->id" />
+        </div>
+        <!-- ▲ お気に入りボタンここまで -->
+
         <!-- ▼ 画像表示（追加） -->
         @if ($spot->image_path)
             <img

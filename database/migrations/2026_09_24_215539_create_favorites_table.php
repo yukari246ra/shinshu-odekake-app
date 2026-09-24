@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
+
+            // ▼ ユーザーとスポットの紐付け
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('spot_id')->constrained()->onDelete('cascade');
+
+            $table->timestamps();
+
+            // ▼ 同じスポットを重複してお気に入り登録できないようにする
+            $table->unique(['user_id', 'spot_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('favorites');
+    }
+};
