@@ -3,36 +3,29 @@
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
-//use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
-//use Laravel\Fortify\Features;
-
-use App\Livewire\CreatePost;
-use App\Livewire\Dashboard;
-use App\Livewire\EditPost;
-use App\Livewire\MyPosts;
-use App\Livewire\ShowPosts;
-use App\Livewire\ShowPost;
 
 use App\Livewire\ShowSpots;
 use App\Livewire\CreateSpot;
 use App\Livewire\ShowSpot;
 use App\Livewire\EditSpot;
 use App\Livewire\SearchSpots;
+use App\Livewire\MyPage;
+use App\Livewire\MyPage\Favorites;   // ★ 追加（忘れずに）
 
-use App\Livewire\MyPage;   // ★ 追加
+// ▼ トップページはサインイン画面へ
+Route::redirect('/', '/login');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// ▼ ログイン後の最初の画面（検索画面）
+Route::get('/home', SearchSpots::class)->name('home');
 
 Route::middleware(['auth'])->group(function () {
 
-    // ▼ Dashboard は使わないのでコメントアウト
-    // Route::get('dashboard', Dashboard::class)->name('dashboard');
-
-    // ▼ マイページ（追加）
+    // ▼ マイページ（トップ）
     Route::get('/mypage', MyPage::class)->name('mypage');
+
+    // ▼ お気に入り一覧（新規追加）
+    Route::get('/mypage/favorites', Favorites::class)->name('mypage.favorites');  // ★ これが必要
 
     Route::redirect('settings', 'settings/profile');
 
@@ -40,18 +33,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('user-password.edit');
     Route::get('settings/appearance', Appearance::class)->name('appearance.edit');
 
-    Route::get('/posts/create', CreatePost::class)->name('posts.create');
-    Route::get('/posts/{post}', ShowPost::class)->name('post');
-    Route::get('/posts/{post}/edit', EditPost::class)->name('posts.edit');
-
-    Route::get('/my-posts', MyPosts::class)->name('my-posts');
-
+    // ▼ スポット作成・編集
     Route::get('/spots/create', CreateSpot::class)->name('spots.create');
     Route::get('/spots/{spot}/edit', EditSpot::class)->name('spots.edit');
     Route::delete('/spots/{spot}', [\App\Livewire\EditSpot::class, 'delete'])->name('spots.delete');
 });
 
-Route::get('/posts', ShowPosts::class)->name('posts');
+// ▼ スポット一覧・詳細
 Route::get('/spots', ShowSpots::class)->name('spots');
 Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
+
+// ▼ 検索ページ（ログイン後に使う）
 Route::get('/search', SearchSpots::class)->name('spots.search');

@@ -62,8 +62,8 @@ class Profile extends Component
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
-
+            // ★ dashboard → home に変更（検索画面へ戻す）
+            $this->redirectIntended(default: route('home', absolute: false));
             return;
         }
 

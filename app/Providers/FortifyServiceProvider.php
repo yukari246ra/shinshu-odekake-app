@@ -29,6 +29,12 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+
+        // ★ ログイン後の遷移先を検索画面（/home）に固定
+        Fortify::redirects('login', '/home');
+
+        // ★ パスワードリセット後も /home に戻す（任意）
+        Fortify::redirects('password-reset', '/home');
     }
 
     /**
