@@ -9,14 +9,75 @@
 
     <form wire:submit="update" class="space-y-6">
 
-        <!-- ▼ スポット名 -->
+        <!-- ① スポット名 -->
         <flux:input
             wire:model="name"
             label="スポット名"
             placeholder="例：安曇野ちひろ美術館"
         />
 
-        <!-- ▼ 利用シーン -->
+        <!-- ② 写真（既存 → 新しい画像） -->
+        @if ($spot->image_path)
+            <div class="mt-4">
+                <flux:text class="font-semibold">現在の画像</flux:text>
+                <img
+                    src="{{ asset('storage/' . $spot->image_path) }}"
+                    alt="現在の画像"
+                    class="w-48 h-48 object-cover rounded mt-2"
+                >
+            </div>
+        @endif
+
+        <flux:input
+            type="file"
+            wire:model="image"
+            label="新しい画像（変更する場合のみ）"
+            accept="image/*"
+        />
+        @error('image')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
+        <!-- ③ 基本情報 -->
+        <flux:input
+            wire:model="address"
+            label="住所"
+            placeholder="例：長野県安曇野市…"
+        />
+
+        <flux:input
+            wire:model="business_hours"
+            label="営業時間"
+            placeholder="例：9:00〜17:00"
+        />
+
+        <flux:input
+            wire:model="closed_days"
+            label="定休日"
+            placeholder="例：火曜日"
+        />
+
+        <flux:input
+            wire:model="phone"
+            label="電話番号"
+            placeholder="例：0263-00-0000"
+        />
+
+        <!-- ④ 駐車場情報 -->
+        <flux:input
+            wire:model="parking"
+            label="駐車場情報"
+            placeholder="例：あり（50台）"
+        />
+
+        <!-- ⑤ 外部サイトリンク -->
+        <flux:input
+            wire:model="website_url"
+            label="公式サイトURL"
+            placeholder="例：https://example.com"
+        />
+
+        <!-- ⑥ その他（カテゴリ・エリア・説明・利用シーン） -->
         <flux:select
             wire:model="scene"
             label="利用シーン"
@@ -29,7 +90,6 @@
             <option value="ひとり">ひとり</option>
         </flux:select>
 
-        <!-- ▼ エリア -->
         <flux:select
             wire:model="area"
             label="エリア"
@@ -42,7 +102,6 @@
             <option value="南信">南信</option>
         </flux:select>
 
-        <!-- ▼ カテゴリ -->
         <flux:select
             wire:model="category"
             label="カテゴリ"
@@ -57,37 +116,6 @@
             <option value="温泉">温泉</option>
         </flux:select>
 
-        <!-- ▼ 住所 -->
-        <flux:input
-            wire:model="address"
-            label="住所"
-            placeholder="例：長野県安曇野市…"
-        />
-
-        <!-- ▼ 既存画像プレビュー -->
-        @if ($spot->image_path)
-            <div class="mt-4">
-                <flux:text class="font-semibold">現在の画像</flux:text>
-                <img
-                    src="{{ asset('storage/' . $spot->image_path) }}"
-                    alt="現在の画像"
-                    class="w-48 h-48 object-cover rounded mt-2"
-                >
-            </div>
-        @endif
-
-        <!-- ▼ 新しい画像アップロード -->
-        <flux:input
-            type="file"
-            wire:model="image"
-            label="新しい画像（変更する場合のみ）"
-            accept="image/*"
-        />
-        @error('image')
-            <flux:text class="text-red-600">{{ $message }}</flux:text>
-        @enderror
-
-        <!-- ▼ 説明 -->
         <flux:textarea
             wire:model="description"
             label="説明"
@@ -105,7 +133,6 @@
                 更新する
             </flux:button>
 
-            <!-- ▼ 削除ボタン -->
             <form method="POST" action="{{ route('spots.delete', $spot->id) }}">
                 @csrf
                 @method('DELETE')

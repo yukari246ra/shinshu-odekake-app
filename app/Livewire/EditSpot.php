@@ -31,9 +31,15 @@ class EditSpot extends Component
     #[Validate('required')]
     public $description = '';
 
-    // ▼ 追加：新しい画像アップロード用
-    #[Validate('image', message: '画像ファイルを選択してください。')]
+    // ▼ 新しい画像アップロード用（バリデーション削除済み）
     public $image;
+
+    // ▼ 追加項目（任意）
+    public $business_hours;
+    public $closed_days;
+    public $phone;
+    public $parking;
+    public $website_url;
 
     public function mount(Spot $spot)
     {
@@ -46,13 +52,20 @@ class EditSpot extends Component
         $this->category = $spot->category;
         $this->address = $spot->address;
         $this->description = $spot->description;
+
+        // ▼ 追加項目の初期値
+        $this->business_hours = $spot->business_hours;
+        $this->closed_days = $spot->closed_days;
+        $this->phone = $spot->phone;
+        $this->parking = $spot->parking;
+        $this->website_url = $spot->website_url;
     }
 
     public function update()
     {
         $this->validate();
 
-        // ▼ 新しい画像がアップロードされた場合
+        // ▼ 新しい画像がアップロードされた場合のみ更新
         if ($this->image) {
             $imagePath = $this->image->store('spots', 'public');
             $this->spot->image_path = $imagePath;
@@ -66,12 +79,20 @@ class EditSpot extends Component
             'category' => $this->category,
             'address' => $this->address,
             'description' => $this->description,
-            'image_path' => $this->spot->image_path, // 画像があれば更新
+            'image_path' => $this->spot->image_path,
+
+            // ▼ 追加項目
+            'business_hours' => $this->business_hours,
+            'closed_days' => $this->closed_days,
+            'phone' => $this->phone,
+            'parking' => $this->parking,
+            'website_url' => $this->website_url,
         ]);
 
         session()->flash('status', 'スポットを更新しました！');
 
-        return $this->redirect('/spots', navigate: true);
+        // ▼ navigate:false にすることで最新データが必ず反映される
+        return $this->redirect('/spots', navigate: false);
     }
 
     public function delete()
@@ -80,7 +101,8 @@ class EditSpot extends Component
 
         session()->flash('status', 'スポットを削除しました！');
 
-        return $this->redirect('/spots', navigate: true);
+        // 削除後も navigate:false の方が安全
+        return $this->redirect('/spots', navigate: false);
     }
 
     public function render()

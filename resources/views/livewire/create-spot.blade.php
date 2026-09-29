@@ -9,7 +9,7 @@
 
     <form wire:submit="save" class="space-y-6">
 
-        <!-- ▼ スポット名（最上部） -->
+        <!-- ① スポット名（必須） -->
         <flux:input
             wire:model="name"
             label="スポット名"
@@ -18,10 +18,66 @@
         @error('name')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
-        <!-- ▲ スポット名ここまで -->
 
 
-        <!-- ▼ 利用シーン（①） -->
+        <!-- ② 写真（画像アップロード） -->
+        <flux:input
+            type="file"
+            wire:model="image"
+            label="写真"
+            accept="image/*"
+        />
+        @error('image')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
+
+        <!-- ③ 基本情報 -->
+        <flux:input
+            wire:model="address"
+            label="住所"
+            placeholder="例：長野県安曇野市…"
+        />
+        @error('address')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
+        <flux:input
+            wire:model="business_hours"
+            label="営業時間"
+            placeholder="例：9:00〜17:00"
+        />
+
+        <flux:input
+            wire:model="closed_days"
+            label="定休日"
+            placeholder="例：火曜日"
+        />
+
+        <flux:input
+            wire:model="phone"
+            label="電話番号"
+            placeholder="例：0263-00-0000"
+        />
+
+
+        <!-- ④ 駐車場情報 -->
+        <flux:input
+            wire:model="parking"
+            label="駐車場情報"
+            placeholder="例：あり（50台）"
+        />
+
+
+        <!-- ⑤ 外部サイトリンク -->
+        <flux:input
+            wire:model="website_url"
+            label="公式サイトURL"
+            placeholder="例：https://example.com"
+        />
+
+
+        <!-- ⑥ その他（カテゴリ・エリア・説明・利用シーン） -->
         <flux:select
             wire:model="scene"
             label="利用シーン"
@@ -36,10 +92,7 @@
         @error('scene')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
-        <!-- ▲ 利用シーンここまで -->
 
-
-        <!-- ▼ エリア（②） -->
         <flux:select
             wire:model="area"
             label="エリア"
@@ -54,10 +107,7 @@
         @error('area')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
-        <!-- ▲ エリアここまで -->
 
-
-        <!-- ▼ カテゴリ（③） -->
         <flux:select
             wire:model="category"
             label="カテゴリ"
@@ -74,34 +124,7 @@
         @error('category')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
-        <!-- ▲ カテゴリここまで -->
 
-
-        <!-- ▼ 住所 -->
-        <flux:input
-            wire:model="address"
-            label="住所"
-            placeholder="例：長野県安曇野市…"
-        />
-        @error('address')
-            <flux:text class="text-red-600">{{ $message }}</flux:text>
-        @enderror
-
-
-        <!-- ▼ 画像アップロード（追加） -->
-        <flux:input
-            type="file"
-            wire:model="image"
-            label="画像"
-            accept="image/*"
-        />
-        @error('image')
-            <flux:text class="text-red-600">{{ $message }}</flux:text>
-        @enderror
-        <!-- ▲ 画像アップロードここまで -->
-
-
-        <!-- ▼ 説明 -->
         <flux:textarea
             wire:model="description"
             label="説明"
