@@ -11,7 +11,10 @@ use App\Livewire\ShowSpot;
 use App\Livewire\EditSpot;
 use App\Livewire\SearchSpots;
 use App\Livewire\MyPage;
-use App\Livewire\MyPage\Favorites;   // ★ 追加（忘れずに）
+use App\Livewire\MyPage\Favorites;
+
+// ★ 追加：SpotList を使うためにインポート
+use App\Livewire\SpotList;
 
 // ▼ トップページはサインイン画面へ
 Route::redirect('/', '/login');
@@ -24,8 +27,8 @@ Route::middleware(['auth'])->group(function () {
     // ▼ マイページ（トップ）
     Route::get('/mypage', MyPage::class)->name('mypage');
 
-    // ▼ お気に入り一覧（新規追加）
-    Route::get('/mypage/favorites', Favorites::class)->name('mypage.favorites');  // ★ これが必要
+    // ▼ お気に入り一覧
+    Route::get('/mypage/favorites', Favorites::class)->name('mypage.favorites');
 
     Route::redirect('settings', 'settings/profile');
 
@@ -39,9 +42,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/spots/{spot}', [\App\Livewire\EditSpot::class, 'delete'])->name('spots.delete');
 });
 
-// ▼ スポット一覧・詳細
-Route::get('/spots', ShowSpots::class)->name('spots');
+// ▼ スポット一覧ページ（SpotList に変更）
+Route::get('/spots', SpotList::class)->name('spots');
+
+// ▼ スポット詳細ページ（そのまま）
 Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
 
-// ▼ 検索ページ（ログイン後に使う）
+// ▼ 検索ページ（トップ画面用）
 Route::get('/search', SearchSpots::class)->name('spots.search');

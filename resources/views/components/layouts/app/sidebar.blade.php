@@ -10,41 +10,36 @@
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
         <!-- ロゴ：mypage に変更 -->
-        <a href="{{ route('mypage') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+        <a href="{{ route('mypage') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse">
             <x-app-logo />
         </a>
 
+        <!-- ▼ メニュー（トップ・マイページ・スポット一覧のみ） -->
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('メニュー')" class="grid">
 
+                <!-- トップ -->
+                <flux:navlist.item
+                    :href="route('home')"
+                    :current="request()->routeIs('home')"
+                >
+                    {{ __('トップ') }}
+                </flux:navlist.item>
+
                 <!-- マイページ -->
                 <flux:navlist.item
-                    icon="home"
                     :href="route('mypage')"
                     :current="request()->routeIs('mypage')"
-                    wire:navigate
                 >
                     {{ __('マイページ') }}
                 </flux:navlist.item>
 
                 <!-- スポット一覧 -->
                 <flux:navlist.item
-                    icon="map"
                     :href="route('spots')"
                     :current="request()->routeIs('spots')"
-                    wire:navigate
                 >
                     {{ __('スポット一覧') }}
-                </flux:navlist.item>
-
-                <!-- スポット作成 -->
-                <flux:navlist.item
-                    icon="plus"
-                    :href="route('spots.create')"
-                    :current="request()->routeIs('spots.create')"
-                    wire:navigate
-                >
-                    {{ __('スポット作成') }}
                 </flux:navlist.item>
 
             </flux:navlist.group>
@@ -52,18 +47,7 @@
 
         <flux:spacer />
 
-        <!-- Repository / Documentation -->
-        <flux:navlist variant="outline">
-            <flux:navlist.item icon="folder-git-2" href="https://github.com/seito-developer/laravel-livewire-v3-starter-kit" target="_blank">
-                {{ __('Repository') }}
-            </flux:navlist.item>
-
-            <flux:navlist.item icon="book-open-text" href="https://github.com/seito-developer/laravel-livewire-v3-starter-kit#readme" target="_blank">
-                {{ __('Documentation') }}
-            </flux:navlist.item>
-        </flux:navlist>
-
-        <!-- Desktop User Menu（ログイン時のみ） -->
+        <!-- ▼ Desktop User Menu（ログイン時のみ） -->
         @auth
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
             <flux:profile
@@ -93,7 +77,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                    <flux:menu.item :href="route('profile.edit')" icon="cog">
                         {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
@@ -111,7 +95,7 @@
         @endauth
     </flux:sidebar>
 
-    <!-- Mobile User Menu（ログイン時のみ） -->
+    <!-- ▼ Mobile User Menu（ログイン時のみ） -->
     @auth
     <flux:header class="lg:hidden">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
@@ -145,7 +129,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                    <flux:menu.item :href="route('profile.edit')" icon="cog">
                         {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>

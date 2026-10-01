@@ -9,25 +9,14 @@
 
     <flux:heading size="xl" level="1">スポット一覧ページ</flux:heading>
 
-    <!-- ▼ フリーワード検索UI -->
+    <!-- ▼ フリーワード検索（リアルタイム） -->
     <div class="flex items-center mb-6 gap-4 mt-6">
-
-        <!-- 検索窓 -->
         <flux:input
-            wire:model="search"
+            wire:model.live="search"
             icon="magnifying-glass"
             class="w-64"
             placeholder="キーワードで検索（名前・説明・住所など）"
         />
-
-        <!-- 検索ボタン -->
-        <flux:button
-            wire:click="$refresh"
-            variant="primary"
-        >
-            検索
-        </flux:button>
-
     </div>
 
     <!-- ▼ 検索結果一覧 -->
