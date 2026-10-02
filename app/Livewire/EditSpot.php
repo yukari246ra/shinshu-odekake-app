@@ -31,7 +31,7 @@ class EditSpot extends Component
     #[Validate('required')]
     public $description = '';
 
-    // ▼ 新しい画像アップロード用（バリデーション削除済み）
+    // ▼ 新しい画像アップロード用
     public $image;
 
     // ▼ 追加項目（任意）
@@ -91,7 +91,7 @@ class EditSpot extends Component
 
         session()->flash('status', 'スポットを更新しました！');
 
-        // ▼ navigate:false にすることで最新データが必ず反映される
+
         return $this->redirect('/spots', navigate: false);
     }
 
@@ -101,7 +101,7 @@ class EditSpot extends Component
 
         session()->flash('status', 'スポットを削除しました！');
 
-        // 削除後も navigate:false の方が安全
+
         return $this->redirect('/spots', navigate: false);
     }
 

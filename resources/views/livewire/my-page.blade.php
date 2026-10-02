@@ -1,12 +1,7 @@
-<div class="max-w-md mx-auto p-6">
+<div class="max-w-lg mx-auto p-6">
 
     <!-- タイトル -->
     <h1 class="text-2xl font-bold mb-6 text-center">マイページ</h1>
-
-    <!-- アプリ名（控えめにする） -->
-    <div class="bg-zinc-100 dark:bg-zinc-700 text-center py-2 rounded-lg mb-4">
-        <span class="text-base font-medium">信州おでかけアプリ</span>
-    </div>
 
     <!-- メニュー -->
     <div class="space-y-3">
@@ -38,13 +33,6 @@
             </button>
         </form>
 
-    </div>
-
-    <!-- 戻る -->
-    <div class="mt-6 text-center">
-        <a href="{{ route('home') }}" class="text-blue-600 hover:underline">
-            ← 戻る
-        </a>
     </div>
 
 </div>

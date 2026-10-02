@@ -21,26 +21,44 @@
 
     <!-- ▼ 検索結果一覧 -->
     @foreach ($spots as $spot)
-        <article class="p-4 shadow-lg">
-            <a href="/spots/{{ $spot->id }}">
-                <flux:text class="mt-4">{{ $spot->created_at->format('y/m/d') }}</flux:text>
+        <article class="p-4 shadow-lg rounded-lg flex gap-4 overflow-hidden">
 
-                <flux:heading size="lg" level="2">
-                    {{ $spot->name }}
-                </flux:heading>
+            {{-- ▼ 右側に収まる写真（確実に表示されるサイズ） --}}
+            @if ($spot->image_path)
+                <img
+                    src="{{ asset('storage/' . $spot->image_path) }}"
+                    alt="{{ $spot->name }}"
+                    class="w-48 h-36 object-cover rounded-lg flex-shrink-0"
+                >
+            @endif
 
-                <flux:text class="mt-2">
-                    {{ Str::limit($spot->description, 100) }}
-                </flux:text>
+            {{-- ▼ 左側のテキスト --}}
+            <div class="flex-1">
+                <a href="/spots/{{ $spot->id }}">
 
-                <flux:text class="mt-4">
-                    カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
-                </flux:text>
+                    <flux:text class="mt-2">
+                        {{ $spot->created_at->format('y/m/d') }}
+                    </flux:text>
 
-                <flux:text class="mt-4">
-                    利用シーン: {{ $spot->scene }}
-                </flux:text>
-            </a>
+                    <flux:heading size="lg" level="2" class="mt-2">
+                        {{ $spot->name }}
+                    </flux:heading>
+
+                    <flux:text class="mt-2">
+                        {{ Str::limit($spot->description, 100) }}
+                    </flux:text>
+
+                    <flux:text class="mt-4">
+                        カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
+                    </flux:text>
+
+                    <flux:text class="mt-4">
+                        利用シーン: {{ $spot->scene }}
+                    </flux:text>
+
+                </a>
+            </div>
+
         </article>
     @endforeach
 
