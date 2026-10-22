@@ -79,7 +79,10 @@
         <div>
             <h2 class="font-semibold mb-1">公式サイト</h2>
             @if ($spot->website_url)
-                <a href="{{ $spot->website_url }}" target="_blank" class="text-blue-600 underline">
+                <a href="{{ $spot->website_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-blue-600 underline">
                     公式サイトを見る
                 </a>
             @else
@@ -93,6 +96,7 @@
             <a
                 href="https://www.google.com/maps/search/?api=1&query={{ urlencode($spot->address) }}"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="text-blue-600 underline"
             >
                 GoogleMapでルート検索

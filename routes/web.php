@@ -13,8 +13,11 @@ use App\Livewire\SearchSpots;
 use App\Livewire\MyPage;
 use App\Livewire\MyPage\Favorites;
 
-// ★ 追加：SpotList を使うためにインポート
+// ★ SpotList を使うためにインポート
 use App\Livewire\SpotList;
+
+// ★ AdminMiddleware を使うためにインポート
+use App\Http\Middleware\AdminMiddleware;
 
 // ▼ トップページはサインイン画面へ
 Route::redirect('/', '/login');
@@ -36,17 +39,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('user-password.edit');
     Route::get('settings/appearance', Appearance::class)->name('appearance.edit');
 
-    // ▼ スポット作成・編集
-    Route::get('/spots/create', CreateSpot::class)->name('spots.create');
-    Route::get('/spots/{spot}/edit', EditSpot::class)->name('spots.edit');
-    Route::delete('/spots/{spot}', [\App\Livewire\EditSpot::class, 'delete'])->name('spots.delete');
+    // ▼ スポット作成・編集（管理者専用）
+    Route::middleware([AdminMiddleware::class])->group(function () {
+        Route::get('/spots/create', CreateSpot::class)->name('spots.create');
+        Route::get('/spots/{spot}/edit', EditSpot::class)->name('spots.edit');
+        Route::delete('/spots/{spot}', [EditSpot::class, 'delete'])->name('spots.delete');
+    });
 });
 
-// ▼ スポット一覧ページ（SpotList に変更）
+// ▼ スポット一覧ページ（SpotList）
 Route::get('/spots', SpotList::class)->name('spots');
 
-// ▼ スポット詳細ページ（そのまま）
+// ▼ スポット詳細ページ
 Route::get('/spots/{spot}', ShowSpot::class)->name('spot');
 
-// ▼ 検索ページ（トップ画面用）
+// ▼ 検索ページ
 Route::get('/search', SearchSpots::class)->name('spots.search');

@@ -34,7 +34,8 @@ class CreateSpot extends Component
     // ④ 駐車場情報（任意）
     public $parking;
 
-    // ⑤ 外部サイトリンク（任意）
+    // ⑤ 外部サイトリンク（任意）※XSS対策のため必須修正
+    #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
 
     // ⑥ その他（カテゴリ・エリア・説明・利用シーン）※必須

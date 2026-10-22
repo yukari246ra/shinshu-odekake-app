@@ -39,10 +39,16 @@ class EditSpot extends Component
     public $closed_days;
     public $phone;
     public $parking;
+
+    // ▼ 外部サイトリンク（任意）※XSS対策のため必須修正
+    #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
 
     public function mount(Spot $spot)
     {
+        // ▼ 認可②：管理者以外は編集ページを開けない
+        abort_unless(auth()->user()->role === 'admin', 403);
+
         $this->spot = $spot;
 
         // 初期値セット
@@ -91,7 +97,6 @@ class EditSpot extends Component
 
         session()->flash('status', 'スポットを更新しました！');
 
-
         return $this->redirect('/spots', navigate: false);
     }
 
@@ -100,7 +105,6 @@ class EditSpot extends Component
         $this->spot->delete();
 
         session()->flash('status', 'スポットを削除しました！');
-
 
         return $this->redirect('/spots', navigate: false);
     }
