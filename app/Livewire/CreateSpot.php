@@ -18,8 +18,8 @@ class CreateSpot extends Component
     #[Validate("min:3", message: "スポット名は3文字以上で入力してください。")]
     public $name = "";
 
-    // ② 写真（必須ではないが画像チェックあり）
-    #[Validate("image", message: "画像ファイルを選択してください。")]
+    // ② 写真（必須ではないが画像チェックあり + サイズ上限追加）
+    #[Validate("nullable|image|max:2048", message: "画像は2MB以内で選択してください。")]
     public $image;
 
     // ③ 基本情報（住所／営業時間／定休日／電話番号）
@@ -34,7 +34,7 @@ class CreateSpot extends Component
     // ④ 駐車場情報（任意）
     public $parking;
 
-    // ⑤ 外部サイトリンク（任意）※XSS対策のため必須修正
+    // ⑤ 外部サイトリンク（任意）※XSS対策済み
     #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
 

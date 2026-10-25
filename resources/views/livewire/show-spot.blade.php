@@ -14,7 +14,17 @@
         </flux:heading>
 
         <div class="mb-4">
-            <livewire:favorite-toggle :spotId="$spot->id" />
+
+            @auth
+                <livewire:favorite-toggle :spotId="$spot->id" />
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="text-blue-600 underline">
+                    お気に入り登録にはログインが必要です
+                </a>
+            @endguest
+
         </div>
 
         <!-- ① 写真 -->

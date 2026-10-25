@@ -23,6 +23,11 @@ class FavoriteToggle extends Component
 
     public function toggle()
     {
+        // ゲストはログイン画面へ誘導
+        if (! Auth::check()) {
+            return $this->redirect(route('login'), navigate: true);
+        }
+
         if ($this->isFavorited) {
             // お気に入り解除
             Favorite::where('user_id', Auth::id())

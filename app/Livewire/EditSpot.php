@@ -31,7 +31,8 @@ class EditSpot extends Component
     #[Validate('required')]
     public $description = '';
 
-    // ▼ 新しい画像アップロード用
+    // ▼ 新しい画像アップロード用（サイズ上限 2MB を追加）
+    #[Validate("nullable|image|max:2048", message: "画像は2MB以内で選択してください。")]
     public $image;
 
     // ▼ 追加項目（任意）
@@ -40,7 +41,7 @@ class EditSpot extends Component
     public $phone;
     public $parking;
 
-    // ▼ 外部サイトリンク（任意）※XSS対策のため必須修正
+    // ▼ 外部サイトリンク（任意）※XSS対策済み
     #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
 
