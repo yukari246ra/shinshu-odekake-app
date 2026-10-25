@@ -3,9 +3,18 @@
 
 <title>{{ $title ?? config('app.name') }}</title>
 
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{{-- ▼ メタディスクリプション（検索結果に表示される説明文） --}}
+<meta name="description" content="長野県の観光スポットを、利用シーン・エリア・カテゴリから探せるアプリ。家族・カップル・ひとりなど、目的に合わせておでかけ先が見つかります。">
+
+{{-- ▼ OGP（SNS共有時のタイトル・説明・画像）※画像は任意 --}}
+<meta property="og:title" content="信州おでかけアプリ">
+<meta property="og:description" content="長野県の観光スポットをシーン・エリア・カテゴリから検索。">
+<meta property="og:type" content="website">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />

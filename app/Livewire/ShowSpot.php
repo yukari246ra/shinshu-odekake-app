@@ -15,6 +15,7 @@ class ShowSpot extends Component
 
     public function render()
     {
-        return view('livewire.show-spot')->title($this->spot->name);
+        return view('livewire.show-spot')
+            ->title($this->spot->name . ' | 信州おでかけアプリ');
     }
 }

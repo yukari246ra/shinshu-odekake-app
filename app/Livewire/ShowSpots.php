@@ -11,6 +11,6 @@ class ShowSpots extends Component
     {
         return view('livewire.show-spots', [
             'spots' => Spot::all(),
-        ]);
+        ])->title('スポット一覧（管理者） | 信州おでかけアプリ');
     }
 }

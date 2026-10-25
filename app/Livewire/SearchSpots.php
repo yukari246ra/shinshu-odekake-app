@@ -33,6 +33,7 @@ class SearchSpots extends Component
 
     public function render()
     {
-        return view('livewire.search-spots');
+        return view('livewire.search-spots')
+            ->title('検索 | 信州おでかけアプリ');
     }
 }

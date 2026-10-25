@@ -23,6 +23,6 @@ class MyPage extends Component
 
         return view('livewire.my-page', [
             'favorites' => $favorites,
-        ]);
+        ])->title('マイページ | 信州おでかけアプリ');
     }
 }

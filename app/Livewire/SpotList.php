@@ -33,6 +33,6 @@ class SpotList extends Component
 
         return view('livewire.spot-list', [
             'spots' => $spots,
-        ]);
+        ])->title('スポット一覧 | 信州おでかけアプリ');
     }
 }
