@@ -1,15 +1,21 @@
-<div class="max-w-3xl mx-auto p-6">
-    <flux:heading size="xl" level="1" class="mb-5 text-[#002C47]">スポット作成ページ</flux:heading>
+<div class="max-w-3xl mx-auto p-6 space-y-8">
 
+    {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
+    <h1 class="text-2xl font-bold text-[#002C47] mb-6">
+        スポット作成ページ
+    </h1>
+
+    {{-- ▼ フラッシュメッセージ --}}
     @if (session('status'))
-        <div class="mb-4 p-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded">
+        <div class="p-4 bg-slate-100 dark:bg-slate-800 text-[#002C47] rounded border border-subtle mb-6">
             {{ session('status') }}
         </div>
     @endif
 
+    {{-- ▼ 作成フォーム --}}
     <form wire:submit="save" class="space-y-6">
 
-        <!-- ① スポット名（必須） -->
+        {{-- ① スポット名 --}}
         <flux:input
             wire:model="name"
             label="スポット名"
@@ -19,8 +25,7 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-
-        <!-- ② 写真（画像アップロード） -->
+        {{-- ② 写真 --}}
         <flux:input
             type="file"
             wire:model="image"
@@ -31,58 +36,24 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-
-        <!-- ③ 基本情報 -->
-        <flux:input
-            wire:model="address"
-            label="住所"
-            placeholder="例：長野県安曇野市…"
-        />
+        {{-- ③ 基本情報 --}}
+        <flux:input wire:model="address" label="住所" placeholder="例：長野県安曇野市…" />
         @error('address')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-        <flux:input
-            wire:model="business_hours"
-            label="営業時間"
-            placeholder="例：9:00〜17:00"
-        />
+        <flux:input wire:model="business_hours" label="営業時間" placeholder="例：9:00〜17:00" />
+        <flux:input wire:model="closed_days" label="定休日" placeholder="例：火曜日" />
+        <flux:input wire:model="phone" label="電話番号" placeholder="例：0263-00-0000" />
 
-        <flux:input
-            wire:model="closed_days"
-            label="定休日"
-            placeholder="例：火曜日"
-        />
+        {{-- ④ 駐車場情報 --}}
+        <flux:input wire:model="parking" label="駐車場情報" placeholder="例：あり（50台）" />
 
-        <flux:input
-            wire:model="phone"
-            label="電話番号"
-            placeholder="例：0263-00-0000"
-        />
+        {{-- ⑤ 外部サイト --}}
+        <flux:input wire:model="website_url" label="公式サイトURL" placeholder="例：https://example.com" />
 
-
-        <!-- ④ 駐車場情報 -->
-        <flux:input
-            wire:model="parking"
-            label="駐車場情報"
-            placeholder="例：あり（50台）"
-        />
-
-
-        <!-- ⑤ 外部サイトリンク -->
-        <flux:input
-            wire:model="website_url"
-            label="公式サイトURL"
-            placeholder="例：https://example.com"
-        />
-
-
-        <!-- ⑥ その他（カテゴリ・エリア・説明・利用シーン） -->
-        <flux:select
-            wire:model="scene"
-            label="利用シーン"
-            placeholder="選択してください"
-        >
+        {{-- ⑥ セレクト系 --}}
+        <flux:select wire:model="scene" label="利用シーン" placeholder="選択してください">
             <option value="">選択してください</option>
             <option value="家族">家族</option>
             <option value="カップル">カップル</option>
@@ -93,11 +64,7 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-        <flux:select
-            wire:model="area"
-            label="エリア"
-            placeholder="選択してください"
-        >
+        <flux:select wire:model="area" label="エリア" placeholder="選択してください">
             <option value="">選択してください</option>
             <option value="北信">北信</option>
             <option value="中信">中信</option>
@@ -108,11 +75,7 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-        <flux:select
-            wire:model="category"
-            label="カテゴリ"
-            placeholder="選択してください"
-        >
+        <flux:select wire:model="category" label="カテゴリ" placeholder="選択してください">
             <option value="">選択してください</option>
             <option value="レストラン">レストラン</option>
             <option value="カフェ">カフェ</option>
@@ -125,6 +88,7 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
+        {{-- 説明 --}}
         <flux:textarea
             wire:model="description"
             label="説明"
@@ -135,11 +99,12 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
-
+        {{-- ▼ 登録ボタン --}}
         <div class="flex justify-end">
-            <flux:button type="submit" variant="primary">
+            <flux:button type="submit" variant="primary" class="h-10 rounded-lg">
                 登録する
             </flux:button>
         </div>
+
     </form>
 </div>

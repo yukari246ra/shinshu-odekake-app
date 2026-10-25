@@ -5,7 +5,6 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
-use App\Livewire\ShowSpots;
 use App\Livewire\CreateSpot;
 use App\Livewire\ShowSpot;
 use App\Livewire\EditSpot;

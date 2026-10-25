@@ -1,20 +1,26 @@
-<div class="max-w-3xl mx-auto p-6">
+<div class="max-w-3xl mx-auto p-6 space-y-8">
 
-    <!-- 戻るボタン -->
+    {{-- ▼ 戻るボタン --}}
     <div class="mb-6">
-        <flux:button href="{{ route('spots') }}" wire:navigate icon="arrow-left" variant="subtle">
+        <flux:button
+            href="{{ route('spots') }}"
+            wire:navigate
+            icon="arrow-left"
+            class="h-10 rounded-lg ui-button--subtle"
+        >
             一覧に戻る
         </flux:button>
     </div>
 
-    <!-- タイトル + お気に入り -->
-    <div class="mb-8 border-b border-slate-200 pb-6 dark:border-slate-700">
+    {{-- ▼ タイトル + お気に入り --}}
+    <div class="mb-8 border-b border-subtle pb-6">
+
+        {{-- h1（ジャンプ率：text-2xl） --}}
         <h1 class="text-2xl font-bold mb-4 text-[#002C47]">
-        {{ $spot->name }}
+            {{ $spot->name }}
         </h1>
 
         <div class="mb-4">
-
             @auth
                 <livewire:favorite-toggle :spotId="$spot->id" />
             @endauth
@@ -24,21 +30,20 @@
                     お気に入り登録にはログインが必要です
                 </a>
             @endguest
-
         </div>
 
-        <!-- ① 写真 -->
+        {{-- ▼ 写真 --}}
         @if ($spot->image_path)
             <img
                 src="{{ asset('storage/' . $spot->image_path) }}"
                 alt="{{ $spot->name }}"
-                class="w-full max-h-96 object-cover rounded mb-6"
+                class="w-full max-h-96 object-cover rounded-lg mb-6"
             >
         @endif
 
-        <!-- エリア + 作成日 -->
-        <div class="flex items-center text-sm text-slate-500 gap-4 mb-2">
-            <div class="flex item-center gap-1">
+        {{-- ▼ エリア + 作成日 --}}
+        <div class="flex items-center text-sm text-[#002C47] gap-4 mb-2">
+            <div class="flex items-center gap-1">
                 <flux:icon.map class="w-4 h-4" />
                 <span>{{ $spot->area }}</span>
             </div>
@@ -49,60 +54,62 @@
             </div>
         </div>
 
-        <!-- 利用シーン -->
-        <div class="flex items-center text-sm text-slate-500 gap-1 mt-2">
+        {{-- ▼ 利用シーン --}}
+        <div class="flex items-center text-sm text-[#002C47] gap-1 mt-2">
             <flux:icon.sparkles class="w-4 h-4" />
             <span>利用シーン：{{ $spot->scene }}</span>
         </div>
     </div>
 
-    <!-- ② 基本情報 -->
-    <div class="space-y-6 text-slate-800 dark:text-slate-200">
+    {{-- ▼ 基本情報（h2 → text-xl） --}}
+    <div class="space-y-6 text-[#002C47]">
 
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">住所</h2>
-            <p>{{ $spot->address }}</p>
+            <h2 class="text-xl font-semibold mb-1">住所</h2>
+            <p class="leading-relaxed">{{ $spot->address }}</p>
         </div>
 
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">営業時間</h2>
-            <p>{{ $spot->business_hours ?? '未登録' }}</p>
+            <h2 class="text-xl font-semibold mb-1">営業時間</h2>
+            <p class="leading-relaxed">{{ $spot->business_hours ?? '未登録' }}</p>
         </div>
 
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">定休日</h2>
-            <p>{{ $spot->closed_days ?? '未登録' }}</p>
+            <h2 class="text-xl font-semibold mb-1">定休日</h2>
+            <p class="leading-relaxed">{{ $spot->closed_days ?? '未登録' }}</p>
         </div>
 
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">電話番号</h2>
-            <p>{{ $spot->phone ?? '未登録' }}</p>
+            <h2 class="text-xl font-semibold mb-1">電話番号</h2>
+            <p class="leading-relaxed">{{ $spot->phone ?? '未登録' }}</p>
         </div>
 
-        <!-- ③ 駐車場情報 -->
+        {{-- ▼ 駐車場情報 --}}
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">駐車場情報</h2>
-            <p>{{ $spot->parking ?? '未登録' }}</p>
+            <h2 class="text-xl font-semibold mb-1">駐車場情報</h2>
+            <p class="leading-relaxed">{{ $spot->parking ?? '未登録' }}</p>
         </div>
 
-        <!-- ④ 外部サイト -->
+        {{-- ▼ 外部サイト --}}
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">公式サイト</h2>
+            <h2 class="text-xl font-semibold mb-1">公式サイト</h2>
             @if ($spot->website_url)
-                <a href="{{ $spot->website_url }}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="text-blue-600 underline">
+                <a
+                    href="{{ $spot->website_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-blue-600 underline"
+                >
                     公式サイトを見る
                 </a>
             @else
-                <p>未登録</p>
+                <p class="leading-relaxed">未登録</p>
             @endif
         </div>
 
-        <!-- ⑤ GoogleMap -->
+        {{-- ▼ GoogleMap --}}
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">GoogleMapでルート案内</h2>
+            <h2 class="text-xl font-semibold mb-1">GoogleMapでルート案内</h2>
             <a
                 href="https://www.google.com/maps/search/?api=1&query={{ urlencode($spot->address) }}"
                 target="_blank"
@@ -113,10 +120,10 @@
             </a>
         </div>
 
-        <!-- ⑥ 説明 -->
+        {{-- ▼ 説明 --}}
         <div>
-            <h2 class="font-semibold mb-1 text-[#002C47]">説明</h2>
-            <p>{!! nl2br(e($spot->description)) !!}</p>
+            <h2 class="text-xl font-semibold mb-1">説明</h2>
+            <p class="leading-relaxed">{!! nl2br(e($spot->description)) !!}</p>
         </div>
 
     </div>

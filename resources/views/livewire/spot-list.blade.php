@@ -1,65 +1,75 @@
-<div class="space-y-4">
+<div class="max-w-3xl mx-auto p-6 space-y-8">
 
-    <!-- ▼ フラッシュメッセージ -->
+    {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
+    <h1 class="text-2xl font-bold text-[#002C47] mb-6">
+        スポット一覧
+    </h1>
+
+    {{-- ▼ フラッシュメッセージ --}}
     @if (session('status'))
-        <div class="p-4 bg-slate-200 text-slate-700 rounded border border-slate-300">
+        <div class="p-4 bg-slate-200 text-slate-700 rounded border border-subtle">
             {{ session('status') }}
         </div>
     @endif
 
-    <flux:heading size="xl" level="1" class="text-[#002C47]">スポット一覧ページ</flux:heading>
-
-    <!-- ▼ フリーワード検索（リアルタイム） -->
-    <div class="flex items-center mb-6 gap-4 mt-6">
+    {{-- ▼ フリーワード検索（統一：gap-4 / h-10） --}}
+    <div class="flex items-center gap-4 mb-6">
         <flux:input
             wire:model.live="search"
             icon="magnifying-glass"
-            class="w-64"
+            class="w-64 h-10"
             placeholder="キーワードで検索（名前・説明・住所など）"
         />
     </div>
 
-    <!-- ▼ 検索結果一覧 -->
-    @foreach ($spots as $spot)
-        <article class="p-4 shadow-lg rounded-lg flex gap-4 overflow-hidden">
+    {{-- ▼ 検索結果一覧 --}}
+    <div class="space-y-6">
+        @foreach ($spots as $spot)
+            <article class="border border-subtle rounded-lg p-4 shadow-sm bg-white dark:bg-zinc-800 flex gap-4 overflow-hidden">
 
-            {{-- ▼ 右側に収まる写真（確実に表示されるサイズ） --}}
-            @if ($spot->image_path)
-                <img
-                    src="{{ asset('storage/' . $spot->image_path) }}"
-                    alt="{{ $spot->name }}"
-                    class="w-48 h-36 object-cover rounded-lg flex-shrink-0"
-                >
-            @endif
+                {{-- ▼ 写真 --}}
+                @if ($spot->image_path)
+                    <img
+                        src="{{ asset('storage/' . $spot->image_path) }}"
+                        alt="{{ $spot->name }}"
+                        class="w-48 h-36 object-cover rounded-lg flex-shrink-0"
+                    >
+                @endif
 
-            {{-- ▼ 左側のテキスト --}}
-            <div class="flex-1">
-                <a href="/spots/{{ $spot->id }}">
+                {{-- ▼ テキスト --}}
+                <div class="flex-1">
+                    <a href="/spots/{{ $spot->id }}">
 
-                    <flux:text class="mt-2">
-                        {{ $spot->created_at->format('y/m/d') }}
-                    </flux:text>
+                        {{-- 日付 --}}
+                        <flux:text class="mt-2 text-sm">
+                            {{ $spot->created_at->format('y/m/d') }}
+                        </flux:text>
 
-                    <flux:heading size="lg" level="2" class="mt-2 text-[#002C47]">
-                        {{ $spot->name }}
-                    </flux:heading>
+                        {{-- ▼ 見出し（ジャンプ率：h2 → text-xl） --}}
+                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-[#002C47]">
+                            {{ $spot->name }}
+                        </flux:heading>
 
-                    <flux:text class="mt-2">
-                        {{ Str::limit($spot->description, 100) }}
-                    </flux:text>
+                        {{-- 説明文（読みやすさ：leading-relaxed） --}}
+                        <flux:text class="mt-3 leading-relaxed">
+                            {{ Str::limit($spot->description, 100) }}
+                        </flux:text>
 
-                    <flux:text class="mt-4">
-                        カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
-                    </flux:text>
+                        {{-- カテゴリ・エリア --}}
+                        <flux:text class="mt-4 text-sm">
+                            カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
+                        </flux:text>
 
-                    <flux:text class="mt-4">
-                        利用シーン: {{ $spot->scene }}
-                    </flux:text>
+                        {{-- 利用シーン --}}
+                        <flux:text class="mt-2 text-sm">
+                            利用シーン: {{ $spot->scene }}
+                        </flux:text>
 
-                </a>
-            </div>
+                    </a>
+                </div>
 
-        </article>
-    @endforeach
+            </article>
+        @endforeach
+    </div>
 
 </div>
