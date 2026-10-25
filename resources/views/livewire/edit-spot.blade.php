@@ -1,5 +1,5 @@
 <div class="max-w-3xl mx-auto p-6">
-    <flux:heading size="xl" level="1" class="mb-5">スポット編集ページ</flux:heading>
+    <flux:heading size="xl" level="1" class="mb-5 text-[#002C47]">スポット編集ページ</flux:heading>
 
     @if (session('status'))
         <div class="mb-4 p-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded">
@@ -18,7 +18,7 @@
 
         <!-- ② 写真（既存 → 新しい画像） -->
         @if ($spot->image_path)
-            <div class="mt-4">
+            <div class="mt-4 ">
                 <flux:text class="font-semibold">現在の画像</flux:text>
                 <img
                     src="{{ asset('storage/' . $spot->image_path) }}"

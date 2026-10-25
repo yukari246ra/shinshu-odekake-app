@@ -1,5 +1,5 @@
 <div class="max-w-3xl mx-auto p-6">
-    <flux:heading size="xl" level="1" class="mb-5">スポット作成ページ</flux:heading>
+    <flux:heading size="xl" level="1" class="mb-5 text-[#002C47]">スポット作成ページ</flux:heading>
 
     @if (session('status'))
         <div class="mb-4 p-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded">

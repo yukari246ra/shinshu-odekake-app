@@ -1,11 +1,11 @@
 <div class="max-w-3xl mx-auto p-6">
 
-    <h1 class="text-2xl font-bold mb-6">
+    <h1 class="text-2xl font-bold mb-6 text-[#002C47]">
         マイページ
     </h1>
 
     <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">
+        <h2 class="text-xl font-semibold mb-4 text-[#002C47]">
             お気に入りスポット
         </h2>
 
@@ -26,7 +26,7 @@
                             @endif
 
                             <div class="flex-1">
-                                <div class="font-bold text-lg">
+                                <div class="font-bold text-lg text-[#002C47]">
                                     {{ $favorite->spot->name }}
                                 </div>
 

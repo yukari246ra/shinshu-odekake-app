@@ -7,7 +7,7 @@
         </div>
     @endif
 
-    <flux:heading size="xl" level="1">スポット一覧ページ</flux:heading>
+    <flux:heading size="xl" level="1" class="text-[#002C47]">スポット一覧ページ</flux:heading>
 
     <!-- ▼ フリーワード検索（リアルタイム） -->
     <div class="flex items-center mb-6 gap-4 mt-6">
@@ -40,7 +40,7 @@
                         {{ $spot->created_at->format('y/m/d') }}
                     </flux:text>
 
-                    <flux:heading size="lg" level="2" class="mt-2">
+                    <flux:heading size="lg" level="2" class="mt-2 text-[#002C47]">
                         {{ $spot->name }}
                     </flux:heading>
 

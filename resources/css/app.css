@@ -8,51 +8,38 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ▼ テーマカラー（必要なものだけ残す） */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
 
-    --color-zinc-50: var(--color-slate-50);
-    --color-zinc-100: var(--color-slate-100);
-    --color-zinc-200: var(--color-slate-200);
-    --color-zinc-300: var(--color-slate-300);
-    --color-zinc-400: var(--color-slate-400);
-    --color-zinc-500: var(--color-slate-500);
-    --color-zinc-600: var(--color-slate-600);
-    --color-zinc-700: var(--color-slate-700);
-    --color-zinc-800: var(--color-slate-800);
-    --color-zinc-900: var(--color-slate-900);
-    --color-zinc-950: var(--color-slate-950);
+    --color-accent: #008689;
+    --color-accent-content: #008689;
+    --color-accent-foreground: #ffffff;
 
-    --color-accent: var(--color-slate-800);
-    --color-accent-content: var(--color-slate-800);
-    --color-accent-foreground: var(--color-white);
+    --color-subtle: #BDC8D0;
+    --color-link: #007BBC;
+    --color-favorite: #CD1C34;
+
+    --color-heading: #002C47;
+    --color-background: #FFFFFF;
 }
 
+/* ▼ ダークモード（必要最低限） */
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-slate-800);
+        --color-accent: #008689;
+        --color-accent-content: #008689;
+        --color-accent-foreground: #ffffff;
     }
 }
 
-@layer base {
-
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
-    }
-}
-
+/* ▼ Flux UI のフォーム系（必要な部分だけ） */
 [data-flux-field]:not(ui-radio, ui-checkbox) {
     @apply grid gap-2;
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
@@ -61,6 +48,52 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+/* ▼ ボタン subtle variant */
+@layer components {
+    .ui-button--subtle {
+        background-color: var(--color-subtle) !important;
+        color: #002C47 !important;
+        border-radius: 8px;
+    }
+
+    .ui-button--subtle:hover {
+        background-color: #e5eaed !important;
+    }
+}
+
+/* ▼ Tailwind の黒系を統一 */
+@layer components {
+    .text-black,
+    .text-zinc-900,
+    .text-zinc-800,
+    .text-neutral-900,
+    .text-neutral-800 {
+        color: #002C47 !important;
+    }
+}
+
+/* ▼ Flux UI のテキスト系（Shadow DOM 外） */
+@layer components {
+    .ui-text,
+    .ui-heading,
+    .ui-card-title,
+    .ui-card-description,
+    .ui-list-item,
+    .ui-label {
+        color: #002C47 !important;
+    }
+}
+
+/* ▼ Shadow DOM 内部の文字色（最重要） */
+:root {
+    --color-foreground: #002C47 !important;
+    --ui-foreground: #002C47 !important;
+}
+
+/* ▼ サイドバー（Flux UI navlist の外側に効く） */
+flux-sidebar,
+flux-navlist,
+flux-navlist-item,
+flux-navlist-group {
+    color: #002C47 !important;
+}

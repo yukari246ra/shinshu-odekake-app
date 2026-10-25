@@ -4,7 +4,11 @@
     <div class="space-y-6">
 
         {{-- 利用シーン --}}
-        <flux:select wire:model="scene" label="利用シーン" class="w-full">
+        <label class="text-[#002C47] font-semibold">利用シーン</label>
+        <flux:select
+            wire:model="scene"
+            placeholder="選択してください"
+        >
             <option value="">選択してください</option>
             <option value="家族">家族</option>
             <option value="カップル">カップル</option>
@@ -13,7 +17,11 @@
         </flux:select>
 
         {{-- エリア --}}
-        <flux:select wire:model="area" label="エリア" class="w-full">
+        <label class="text-[#002C47] font-semibold">エリア</label>
+        <flux:select
+            wire:model="area"
+            placeholder="選択してください"
+        >
             <option value="">選択してください</option>
             <option value="北信">北信</option>
             <option value="中信">中信</option>
@@ -22,7 +30,11 @@
         </flux:select>
 
         {{-- カテゴリ --}}
-        <flux:select wire:model="category" label="カテゴリ" class="w-full">
+        <label class="text-[#002C47] font-semibold">カテゴリ</label>
+        <flux:select
+            wire:model="category"
+            placeholder="選択してください"
+        >
             <option value="">選択してください</option>
             <option value="レストラン">レストラン</option>
             <option value="カフェ">カフェ</option>
@@ -34,7 +46,7 @@
 
         {{-- ▼ 検索ボタン --}}
         <div class="pt-6">
-            <flux:button wire:click="search" class="w-full py-3">
+            <flux:button wire:click="search" class="w-full py-3 ui-button--subtle">
                 検索する
             </flux:button>
         </div>
@@ -63,7 +75,7 @@
                             {{ $spot->created_at->format('y/m/d') }}
                         </flux:text>
 
-                        <flux:heading size="lg" level="2" class="mt-2">
+                        <flux:heading size="lg" level="2" class="mt-2 text-[#002C47]">
                             {{ $spot->name }}
                         </flux:heading>
 

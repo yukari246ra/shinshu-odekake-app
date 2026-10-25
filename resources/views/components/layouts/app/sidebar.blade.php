@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('partials.head')
 </head>
@@ -10,7 +10,7 @@
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
         <!-- ロゴ：mypage に変更 -->
-        <a href="{{ route('mypage') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse">
+        <a href="{{ route('mypage') }}" class="me-5 text-[#002C47] flex items-center space-x-2 rtl:space-x-reverse">
             <x-app-logo />
         </a>
 
