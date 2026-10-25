@@ -1,30 +1,32 @@
 <div class="max-w-lg mx-auto p-6 space-y-8">
 
-    {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
+    {{-- ▼ ページタイトル --}}
     <h1 class="text-2xl font-bold text-center text-[#002C47] mb-6">
         マイページ
     </h1>
 
-    {{-- ▼ メニュー（カード統一：rounded-lg / border-subtle / p-4） --}}
+    {{-- ▼ メニュー --}}
     <div class="space-y-4">
 
         {{-- お気に入り一覧 --}}
         <a
             href="{{ route('mypage.favorites') }}"
-            class="block w-full text-center h-10 flex items-center justify-center
+            class="block w-full h-10 flex items-center justify-center gap-2
                    rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
                    hover:bg-zinc-100 dark:hover:bg-zinc-700"
         >
+            <flux:icon name="heart" class="w-5 h-5" />
             お気に入り一覧
         </a>
 
         {{-- ユーザー設定 --}}
         <a
             href="{{ route('profile.edit') }}"
-            class="block w-full text-center h-10 flex items-center justify-center
+            class="block w-full h-10 flex items-center justify-center gap-2
                    rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
                    hover:bg-zinc-100 dark:hover:bg-zinc-700"
         >
+            <flux:icon name="user" class="w-5 h-5" />
             ユーザー設定
         </a>
 
@@ -33,10 +35,11 @@
             @csrf
             <button
                 type="submit"
-                class="block w-full text-center h-10 flex items-center justify-center
+                class="block w-full h-10 flex items-center justify-center gap-2
                        rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
                        hover:bg-zinc-100 dark:hover:bg-zinc-700"
             >
+                <flux:icon name="arrow-right-start-on-rectangle" class="w-5 h-5" />
                 サインアウト
             </button>
         </form>
@@ -44,3 +47,4 @@
     </div>
 
 </div>
+

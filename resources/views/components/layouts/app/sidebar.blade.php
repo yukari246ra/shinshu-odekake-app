@@ -20,6 +20,7 @@
 
                 <!-- トップ -->
                 <flux:navlist.item
+                    icon="home"
                     :href="route('home')"
                     :current="request()->routeIs('home')"
                 >
@@ -28,6 +29,7 @@
 
                 <!-- マイページ -->
                 <flux:navlist.item
+                    icon="user"
                     :href="route('mypage')"
                     :current="request()->routeIs('mypage')"
                 >
@@ -36,6 +38,7 @@
 
                 <!-- スポット一覧 -->
                 <flux:navlist.item
+                    icon="map"
                     :href="route('spots')"
                     :current="request()->routeIs('spots')"
                 >
