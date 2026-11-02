@@ -58,7 +58,7 @@
                                 {{-- 詳細ボタン --}}
                                 <a
                                     href="{{ route('spot', $favorite->spot->id) }}"
-                                    class="inline-flex items-center gap-2 mt-2 px-3 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700"
+                                    class="inline-flex items-center gap-2 mt-2 px-3 py-1 text-sm rounded bg-[#007BBC] text-white hover:opacity-90"
                                 >
                                     <flux:icon name="arrow-right" class="w-4 h-4" />
                                     詳細を見る
@@ -72,6 +72,7 @@
                 @endforeach
             </div>
         @endif
+
     </div>
 
 </div>

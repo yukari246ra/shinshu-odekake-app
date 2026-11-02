@@ -27,7 +27,7 @@
             @endauth
 
             @guest
-                <a href="{{ route('login') }}" class="text-blue-600 underline flex items-center gap-2">
+                <a href="{{ route('login') }}" class="text-[#007BBC] underline flex items-center gap-2">
                     <flux:icon name="heart" class="w-4 h-4" />
                     お気に入り登録にはログインが必要です
                 </a>
@@ -100,7 +100,6 @@
             <p class="leading-relaxed">{{ $spot->phone ?? '未登録' }}</p>
         </div>
 
-        {{-- ▼ 駐車場情報（car → truck に修正） --}}
         <div>
             <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                 <flux:icon name="truck" class="w-5 h-5" />
@@ -121,7 +120,7 @@
                     href="{{ $spot->website_url }}"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-blue-600 underline flex items-center gap-2"
+                    class="text-[#007BBC] underline flex items-center gap-2"
                 >
                     <flux:icon name="arrow-top-right-on-square" class="w-4 h-4" />
                     公式サイトを見る
@@ -142,7 +141,7 @@
                 href="https://www.google.com/maps/search/?api=1&query={{ urlencode($spot->address) }}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-blue-600 underline flex items-center gap-2"
+                class="text-[#007BBC] underline flex items-center gap-2"
             >
                 <flux:icon name="arrow-top-right-on-square" class="w-4 h-4" />
                 GoogleMapでルート検索
