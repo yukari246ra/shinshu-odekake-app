@@ -12,8 +12,8 @@
         <a
             href="{{ route('mypage.favorites') }}"
             class="block w-full h-10 flex items-center justify-center gap-2
-                   rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
-                   hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                   rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                   hover:opacity-90 transition"
         >
             <flux:icon name="heart" class="w-5 h-5" />
             お気に入り一覧
@@ -23,8 +23,8 @@
         <a
             href="{{ route('profile.edit') }}"
             class="block w-full h-10 flex items-center justify-center gap-2
-                   rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
-                   hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                   rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                   hover:opacity-90 transition"
         >
             <flux:icon name="user" class="w-5 h-5" />
             ユーザー設定
@@ -36,8 +36,8 @@
             <button
                 type="submit"
                 class="block w-full h-10 flex items-center justify-center gap-2
-                       rounded-lg bg-[var(--color-subtle)] text-[#002C47] font-medium shadow-sm
-                       hover:bg-zinc-100 dark:hover:bg-zinc-700"
+                       rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                       hover:opacity-90 transition"
             >
                 <flux:icon name="arrow-right-start-on-rectangle" class="w-5 h-5" />
                 サインアウト
@@ -47,4 +47,3 @@
     </div>
 
 </div>
-
