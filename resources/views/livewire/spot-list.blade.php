@@ -79,4 +79,8 @@
         @endforeach
     </div>
 
+    <div class="mt-8 flex justify-end">
+        {{ $spots->links() }}
+    </div>
+
 </div>
