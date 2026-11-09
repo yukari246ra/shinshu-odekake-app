@@ -19,14 +19,11 @@ use App\Livewire\Home;
 // ★ AdminMiddleware を使うためにインポート
 use App\Http\Middleware\AdminMiddleware;
 
-// ▼ トップページはサインイン画面へ
-Route::redirect('/', '/login');
+// ▼ トップページ
+Route::get('/', Home::class)->name('home');
 
-// ▼ 新しいトップページの確認用
-Route::get('/top-test', Home::class)->name('top-test');
-
-// ▼ ログイン後の最初の画面（検索画面）
-Route::get('/home', SearchSpots::class)->name('home');
+// ▼ 旧 /home は、トップへ転送
+Route::redirect('/home', '/');
 
 Route::middleware(['auth'])->group(function () {
 

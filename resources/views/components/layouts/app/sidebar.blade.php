@@ -45,6 +45,16 @@
                     {{ __('スポット一覧') }}
                 </flux:navlist.item>
 
+
+                <!-- スポット検索 -->
+                <flux:navlist.item
+                    icon="magnifying-glass"
+                    :href="route('spots.search')"
+                    :current="request()->routeIs('spots.search')"
+                >
+                    {{ __('スポット検索') }}
+                </flux:navlist.item>
+
             </flux:navlist.group>
         </flux:navlist>
 
