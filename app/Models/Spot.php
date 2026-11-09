@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Spot extends Model
 {
@@ -14,12 +15,22 @@ class Spot extends Model
         'address',
         'image_path',
         'scene',
-
-        // ▼ 追加項目（保存されるように必須）
         'business_hours',
         'closed_days',
         'phone',
         'parking',
         'website_url',
     ];
+
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return $this->image_path
+            ? asset('storage/' . $this->image_path)
+            : asset('images/no-image.jpg');
+    }
 }
