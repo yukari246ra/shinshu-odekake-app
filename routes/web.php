@@ -14,12 +14,16 @@ use App\Livewire\MyPage\Favorites;
 
 // ★ SpotList を使うためにインポート
 use App\Livewire\SpotList;
+use App\Livewire\Home;
 
 // ★ AdminMiddleware を使うためにインポート
 use App\Http\Middleware\AdminMiddleware;
 
 // ▼ トップページはサインイン画面へ
 Route::redirect('/', '/login');
+
+// ▼ 新しいトップページの確認用
+Route::get('/top-test', Home::class)->name('top-test');
 
 // ▼ ログイン後の最初の画面（検索画面）
 Route::get('/home', SearchSpots::class)->name('home');
