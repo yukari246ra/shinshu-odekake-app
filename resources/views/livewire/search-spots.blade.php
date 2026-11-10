@@ -3,7 +3,7 @@
     {{-- ▼ ページタイトル --}}
     <h1 class="text-2xl font-bold text-[#002C47] mb-6 flex items-center gap-2">
         <flux:icon name="magnifying-glass" class="w-6 h-6" />
-        スポット検索
+        絞り込み検索
     </h1>
 
     {{-- ▼ 検索フォーム --}}

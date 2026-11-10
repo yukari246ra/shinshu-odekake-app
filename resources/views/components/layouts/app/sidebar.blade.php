@@ -52,7 +52,7 @@
                     :href="route('spots.search')"
                     :current="request()->routeIs('spots.search')"
                 >
-                    {{ __('スポット検索') }}
+                    {{ __('絞り込み検索') }}
                 </flux:navlist.item>
 
             </flux:navlist.group>
