@@ -172,4 +172,32 @@
             </div>
         </aside>
     </div>
+    {{-- 同じエリアのスポット --}}
+    @if ($sameArea->isNotEmpty())
+        <section class="space-y-4 border-t border-slate-200 pt-8">
+            <h2 class="text-xl font-bold text-[#002C47]">
+                同じエリア（{{ $spot->area }}）のスポット
+            </h2>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+                @foreach ($sameArea as $related)
+                    @include('livewire.partials.spot-card', ['spot' => $related, 'prefix' => 'area'])
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    {{-- 同じカテゴリのスポット --}}
+    @if ($sameCategory->isNotEmpty())
+        <section class="space-y-4">
+            <h2 class="text-xl font-bold text-[#002C47]">
+                同じカテゴリ（{{ $spot->category }}）のスポット
+            </h2>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+                @foreach ($sameCategory as $related)
+                    @include('livewire.partials.spot-card', ['spot' => $related, 'prefix' => 'cat'])
+                @endforeach
+            </div>
+        </section>
+    @endif
+
 </div>
