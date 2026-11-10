@@ -1,7 +1,7 @@
 <div class="max-w-3xl mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
-    <h1 class="text-2xl font-bold text-[#002C47] mb-6 flex items-center gap-2">
+    <h1 class="text-2xl font-bold text-heading mb-6 flex items-center gap-2">
         <flux:icon name="map-pin" class="w-6 h-6" />
         スポット一覧
     </h1>
@@ -49,7 +49,7 @@
                         </flux:text>
 
                         {{-- ▼ 見出し（ジャンプ率：h2 → text-xl） --}}
-                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-[#002C47] flex items-center gap-2">
+                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-heading flex items-center gap-2">
                             <flux:icon name="map" class="w-5 h-5" />
                             {{ $spot->name }}
                         </flux:heading>

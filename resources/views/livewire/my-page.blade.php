@@ -1,7 +1,7 @@
 <div class="max-w-lg mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル --}}
-    <h1 class="text-2xl font-bold text-center text-[#002C47] mb-6">
+    <h1 class="text-2xl font-bold text-center text-heading mb-6">
         マイページ
     </h1>
 
@@ -12,7 +12,7 @@
         <a
             href="{{ route('mypage.favorites') }}"
             class="block w-full h-10 flex items-center justify-center gap-2
-                   rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                   rounded-lg bg-link text-white font-medium shadow-md
                    hover:opacity-90 transition"
         >
             <flux:icon name="heart" class="w-5 h-5" />
@@ -23,7 +23,7 @@
         <a
             href="{{ route('profile.edit') }}"
             class="block w-full h-10 flex items-center justify-center gap-2
-                   rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                   rounded-lg bg-link text-white font-medium shadow-md
                    hover:opacity-90 transition"
         >
             <flux:icon name="user" class="w-5 h-5" />
@@ -36,7 +36,7 @@
             <button
                 type="submit"
                 class="block w-full h-10 flex items-center justify-center gap-2
-                       rounded-lg bg-[#007BBC] text-white font-medium shadow-md
+                       rounded-lg bg-link text-white font-medium shadow-md
                        hover:opacity-90 transition"
             >
                 <flux:icon name="arrow-right-start-on-rectangle" class="w-5 h-5" />

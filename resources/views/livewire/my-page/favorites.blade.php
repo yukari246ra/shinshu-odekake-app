@@ -1,7 +1,7 @@
 <div class="max-w-3xl mx-auto p-6">
 
     {{-- ▼ ページタイトル --}}
-    <h1 class="text-2xl font-bold mb-6 text-[#002C47] flex items-center gap-2">
+    <h1 class="text-2xl font-bold mb-6 text-heading flex items-center gap-2">
         <flux:icon name="user" class="w-6 h-6" />
         マイページ
     </h1>
@@ -9,7 +9,7 @@
     <div class="mb-8">
 
         {{-- ▼ セクションタイトル --}}
-        <h2 class="text-xl font-semibold mb-4 text-[#002C47] flex items-center gap-2">
+        <h2 class="text-xl font-semibold mb-4 text-heading flex items-center gap-2">
             <flux:icon name="heart" class="w-5 h-5" />
             お気に入りスポット
         </h2>
@@ -35,7 +35,7 @@
                             <div class="flex-1">
 
                                 {{-- スポット名 --}}
-                                <div class="font-bold text-lg text-[#002C47] flex items-center gap-2">
+                                <div class="font-bold text-lg text-heading flex items-center gap-2">
                                     <flux:icon name="map" class="w-5 h-5" />
                                     {{ $favorite->spot->name }}
                                 </div>
@@ -58,7 +58,7 @@
                                 {{-- 詳細ボタン --}}
                                 <a
                                     href="{{ route('spot', $favorite->spot->id) }}"
-                                    class="inline-flex items-center gap-2 mt-2 px-3 py-1 text-sm rounded bg-[#007BBC] text-white hover:opacity-90"
+                                    class="inline-flex items-center gap-2 mt-2 px-3 py-1 text-sm rounded bg-link text-white hover:opacity-90"
                                 >
                                     <flux:icon name="arrow-right" class="w-4 h-4" />
                                     詳細を見る

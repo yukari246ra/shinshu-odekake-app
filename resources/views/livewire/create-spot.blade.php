@@ -1,13 +1,13 @@
 <div class="max-w-3xl mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
-    <h1 class="text-2xl font-bold text-[#002C47] mb-6">
+    <h1 class="text-2xl font-bold text-heading mb-6">
         スポット作成ページ
     </h1>
 
     {{-- ▼ フラッシュメッセージ --}}
     @if (session('status'))
-        <div class="p-4 bg-slate-100 dark:bg-slate-800 text-[#002C47] rounded border border-subtle mb-6">
+        <div class="p-4 bg-slate-100 dark:bg-slate-800 text-heading rounded border border-subtle mb-6">
             {{ session('status') }}
         </div>
     @endif

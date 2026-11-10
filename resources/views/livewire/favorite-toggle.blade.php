@@ -3,7 +3,7 @@
         wire:click="toggle"
         variant="ghost"
         size="sm"
-        class="flex items-center gap-2 h-10 rounded-lg text-[#002C47]"
+        class="flex items-center gap-2 h-10 rounded-lg text-heading"
     >
         @if ($isFavorited)
             <flux:icon.heart class="w-5 h-5 text-red-500" />

@@ -1,7 +1,7 @@
 <div class="mx-auto max-w-6xl space-y-10">
 
     {{-- ヒーロー --}}
-    <section class="relative h-72 overflow-hidden rounded-3xl bg-gradient-to-br from-[#008689] to-[#002C47] md:h-96">
+    <section class="relative h-72 overflow-hidden rounded-3xl bg-gradient-to-br from-accent to-heading md:h-96">
         <img src="{{ asset('images/hero-shinshu.jpg') }}" alt=""
              class="absolute inset-0 h-full w-full object-cover"
              onerror="this.style.display='none'">
@@ -25,11 +25,11 @@
     {{-- カテゴリ・エリア --}}
     <section class="space-y-4">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold text-[#002C47]">カテゴリから探す</h2>
+            <h2 class="text-xl font-bold text-heading">カテゴリから探す</h2>
 
             @if ($category !== '' || $area !== '' || $keyword !== '')
                 <button type="button" wire:click="resetFilters"
-                        class="text-sm text-[#007BBC] underline">
+                        class="text-sm text-link underline">
                     絞り込みを解除
                 </button>
             @endif
@@ -40,8 +40,8 @@
                 <button type="button" wire:click="selectCategory('{{ $name }}')"
                         class="flex shrink-0 items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition
                                {{ $category === $name
-                                    ? 'border-[#008689] bg-[#008689] text-white'
-                                    : 'border-slate-300 bg-white text-[#002C47] hover:border-[#008689] dark:bg-zinc-800' }}">
+                                    ? 'border-accent bg-accent text-white'
+                                    : 'border-slate-300 bg-white text-heading hover:border-accent dark:bg-zinc-800' }}">
                     <span class="text-lg">{{ $emoji }}</span>
                     {{ $name }}
                 </button>
@@ -49,13 +49,13 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <span class="text-sm font-medium text-[#002C47]">エリア</span>
+            <span class="text-sm font-medium text-heading">エリア</span>
             @foreach ($areas as $name)
                 <button type="button" wire:click="selectArea('{{ $name }}')"
                         class="rounded-full border px-4 py-1.5 text-sm transition
                                {{ $area === $name
-                                    ? 'border-[#002C47] bg-[#002C47] text-white'
-                                    : 'border-slate-300 bg-white text-[#002C47] hover:border-[#002C47] dark:bg-zinc-800' }}">
+                                    ? 'border-heading bg-heading text-white'
+                                    : 'border-slate-300 bg-white text-heading hover:border-heading dark:bg-zinc-800' }}">
                     {{ $name }}
                 </button>
             @endforeach
@@ -65,10 +65,10 @@
     {{-- みんなのおすすめ（4カラム） --}}
     <section class="space-y-4">
         <div class="flex items-end justify-between">
-            <h2 class="text-xl font-bold text-[#002C47]">
+            <h2 class="text-xl font-bold text-heading">
                 {{ $category !== '' ? "{$category}のおすすめ" : 'みんなのおすすめ' }}
             </h2>
-            <a href="{{ route('spots') }}" wire:navigate class="text-sm text-[#007BBC] underline">
+            <a href="{{ route('spots') }}" wire:navigate class="text-sm text-link underline">
                 すべて見る
             </a>
         </div>
@@ -89,7 +89,7 @@
     {{-- 新着スポット（3カラム） --}}
     @if ($latest->isNotEmpty())
         <section class="space-y-4">
-            <h2 class="text-xl font-bold text-[#002C47]">新着スポット</h2>
+            <h2 class="text-xl font-bold text-heading">新着スポット</h2>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($latest as $spot)

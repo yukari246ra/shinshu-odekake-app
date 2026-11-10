@@ -1,13 +1,13 @@
 <div class="max-w-3xl mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
-    <h1 class="text-2xl font-bold text-[#002C47] mb-6">
+    <h1 class="text-2xl font-bold text-heading mb-6">
         スポット編集ページ
     </h1>
 
     {{-- ▼ フラッシュメッセージ --}}
     @if (session('status'))
-        <div class="p-4 bg-slate-100 dark:bg-slate-800 text-[#002C47] rounded border border-subtle mb-6">
+        <div class="p-4 bg-slate-100 dark:bg-slate-800 text-heading rounded border border-subtle mb-6">
             {{ session('status') }}
         </div>
     @endif
@@ -25,7 +25,7 @@
         {{-- ② 既存画像 --}}
         @if ($spot->image_path)
             <div class="mt-4">
-                <flux:text class="text-sm font-medium text-[#002C47]">現在の画像</flux:text>
+                <flux:text class="text-sm font-medium text-heading">現在の画像</flux:text>
                 <img
                     src="{{ asset('storage/' . $spot->image_path) }}"
                     alt="現在の画像"
@@ -48,7 +48,7 @@
         {{-- 2枚目の画像 --}}
         @if ($spot->image_path_2)
             <div class="mt-4">
-                <flux:text class="text-sm font-medium text-[#002C47]">現在の2枚目の画像</flux:text>
+                <flux:text class="text-sm font-medium text-heading">現在の2枚目の画像</flux:text>
                 <img
                     src="{{ asset('storage/' . $spot->image_path_2) }}"
                     alt="現在の2枚目の画像"

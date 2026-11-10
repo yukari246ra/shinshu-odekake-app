@@ -1,7 +1,7 @@
 <div class="max-w-2xl mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル --}}
-    <h1 class="text-2xl font-bold text-[#002C47] mb-6 flex items-center gap-2">
+    <h1 class="text-2xl font-bold text-heading mb-6 flex items-center gap-2">
         <flux:icon name="magnifying-glass" class="w-6 h-6" />
         絞り込み検索
     </h1>
@@ -10,7 +10,7 @@
     <div class="grid gap-4">
 
         {{-- 利用シーン --}}
-        <label class="text-sm font-medium text-[#002C47] flex items-center gap-2">
+        <label class="text-sm font-medium text-heading flex items-center gap-2">
             <flux:icon name="sparkles" class="w-4 h-4" />
             利用シーン
         </label>
@@ -23,7 +23,7 @@
         </flux:select>
 
         {{-- エリア --}}
-        <label class="text-sm font-medium text-[#002C47] flex items-center gap-2">
+        <label class="text-sm font-medium text-heading flex items-center gap-2">
             <flux:icon name="map-pin" class="w-4 h-4" />
             エリア
         </label>
@@ -36,7 +36,7 @@
         </flux:select>
 
         {{-- カテゴリ --}}
-        <label class="text-sm font-medium text-[#002C47] flex items-center gap-2">
+        <label class="text-sm font-medium text-heading flex items-center gap-2">
             <flux:icon name="tag" class="w-4 h-4" />
             カテゴリ
         </label>
@@ -88,7 +88,7 @@
                         </flux:text>
 
                         {{-- 見出し --}}
-                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-[#002C47] flex items-center gap-2">
+                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-heading flex items-center gap-2">
                             <flux:icon name="map" class="w-5 h-5" />
                             {{ $spot->name }}
                         </flux:heading>

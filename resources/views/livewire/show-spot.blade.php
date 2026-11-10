@@ -30,7 +30,7 @@
                 <div class="flex flex-wrap gap-2">
                     @foreach ([$spot->category, $spot->area, $spot->scene] as $label)
                         @if ($label)
-                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-[#002C47] shadow">
+                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-heading shadow">
                                 {{ $label }}
                             </span>
                         @endif
@@ -49,7 +49,7 @@
     {{-- タイトルとお気に入り --}}
     <div class="flex flex-wrap items-start justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-[#002C47] md:text-3xl">{{ $spot->name }}</h1>
+            <h1 class="text-2xl font-bold text-heading md:text-3xl">{{ $spot->name }}</h1>
             <p class="mt-1 flex items-center gap-1 text-sm text-slate-500">
                 <flux:icon name="map-pin" class="size-4" />
                 {{ $spot->address }}
@@ -61,7 +61,7 @@
         @endauth
 
         @guest
-            <a href="{{ route('login') }}" class="flex items-center gap-2 text-sm text-[#007BBC] underline">
+            <a href="{{ route('login') }}" class="flex items-center gap-2 text-sm text-link underline">
                 <flux:icon name="heart" class="size-4" />
                 お気に入り登録にはログインが必要です
             </a>
@@ -75,7 +75,7 @@
         <div class="space-y-8 lg:col-span-2">
 
             <section>
-                <h2 class="mb-3 flex items-center gap-2 text-xl font-bold text-[#002C47]">
+                <h2 class="mb-3 flex items-center gap-2 text-xl font-bold text-heading">
                     <flux:icon name="information-circle" class="size-5" />
                     このスポットについて
                 </h2>
@@ -83,7 +83,7 @@
             </section>
 
             <section>
-                <h2 class="mb-3 flex items-center gap-2 text-xl font-bold text-[#002C47]">
+                <h2 class="mb-3 flex items-center gap-2 text-xl font-bold text-heading">
                     <flux:icon name="map" class="size-5" />
                     アクセス
                 </h2>
@@ -103,7 +103,7 @@
                         href="https://www.google.com/maps/search/?api=1&query={{ urlencode($spot->address) }}"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="mt-3 inline-flex items-center gap-2 text-sm text-[#007BBC] underline"
+                        class="mt-3 inline-flex items-center gap-2 text-sm text-link underline"
                     >
                         <flux:icon name="arrow-top-right-on-square" class="size-4" />
                         Googleマップでルートを調べる
@@ -117,27 +117,27 @@
         {{-- 右：基本情報カード --}}
         <aside>
             <div class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:bg-zinc-800 lg:sticky lg:top-6">
-                <h2 class="text-lg font-bold text-[#002C47]">基本情報</h2>
+                <h2 class="text-lg font-bold text-heading">基本情報</h2>
 
                 <dl class="space-y-4">
                     @foreach ($infos as $info)
                         <div class="flex gap-3">
-                            <flux:icon :name="$info['icon']" class="mt-0.5 size-5 shrink-0 text-[#008689]" />
+                            <flux:icon :name="$info['icon']" class="mt-0.5 size-5 shrink-0 text-accent" />
                             <div>
                                 <dt class="text-xs text-slate-500">{{ $info['label'] }}</dt>
-                                <dd class="text-sm text-[#002C47]">{{ $info['value'] ?: '未登録' }}</dd>
+                                <dd class="text-sm text-heading">{{ $info['value'] ?: '未登録' }}</dd>
                             </div>
                         </div>
                     @endforeach
 
                     {{-- 電話番号（スマホでタップして電話できる） --}}
                     <div class="flex gap-3">
-                        <flux:icon name="phone" class="mt-0.5 size-5 shrink-0 text-[#008689]" />
+                        <flux:icon name="phone" class="mt-0.5 size-5 shrink-0 text-accent" />
                         <div>
                             <dt class="text-xs text-slate-500">電話番号</dt>
-                            <dd class="text-sm text-[#002C47]">
+                            <dd class="text-sm text-heading">
                                 @if ($spot->phone)
-                                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $spot->phone) }}" class="text-[#007BBC] underline">
+                                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $spot->phone) }}" class="text-link underline">
                                         {{ $spot->phone }}
                                     </a>
                                 @else
@@ -149,7 +149,7 @@
 
                     {{-- 公式サイト --}}
                     <div class="flex gap-3">
-                        <flux:icon name="globe-alt" class="mt-0.5 size-5 shrink-0 text-[#008689]" />
+                        <flux:icon name="globe-alt" class="mt-0.5 size-5 shrink-0 text-accent" />
                         <div>
                             <dt class="text-xs text-slate-500">公式サイト</dt>
                             <dd class="text-sm">
@@ -158,12 +158,12 @@
                                         href="{{ $spot->website_url }}"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="text-[#007BBC] underline"
+                                        class="text-link underline"
                                     >
                                         公式サイトを見る
                                     </a>
                                 @else
-                                    <span class="text-[#002C47]">未登録</span>
+                                    <span class="text-heading">未登録</span>
                                 @endif
                             </dd>
                         </div>
@@ -175,7 +175,7 @@
     {{-- 同じエリアのスポット --}}
     @if ($sameArea->isNotEmpty())
         <section class="space-y-4 border-t border-slate-200 pt-8">
-            <h2 class="text-xl font-bold text-[#002C47]">
+            <h2 class="text-xl font-bold text-heading">
                 同じエリア（{{ $spot->area }}）のスポット
             </h2>
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
@@ -189,7 +189,7 @@
     {{-- 同じカテゴリのスポット --}}
     @if ($sameCategory->isNotEmpty())
         <section class="space-y-4">
-            <h2 class="text-xl font-bold text-[#002C47]">
+            <h2 class="text-xl font-bold text-heading">
                 同じカテゴリ（{{ $spot->category }}）のスポット
             </h2>
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">

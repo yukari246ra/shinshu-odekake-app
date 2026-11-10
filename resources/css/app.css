@@ -52,7 +52,7 @@ select:focus[data-flux-control] {
 @layer components {
     .ui-button--subtle {
         background-color: var(--color-subtle) !important;
-        color: #002C47 !important;
+        color: var(--color-heading) !important;
         border-radius: 8px;
     }
 
@@ -68,7 +68,7 @@ select:focus[data-flux-control] {
     .text-zinc-800,
     .text-neutral-900,
     .text-neutral-800 {
-        color: #002C47 !important;
+        color: var(--color-heading) !important;
     }
 }
 
@@ -80,14 +80,14 @@ select:focus[data-flux-control] {
     .ui-card-description,
     .ui-list-item,
     .ui-label {
-        color: #002C47 !important;
+        color: var(--color-heading) !important;
     }
 }
 
 /* ▼ Shadow DOM 内部の文字色（最重要） */
 :root {
-    --color-foreground: #002C47 !important;
-    --ui-foreground: #002C47 !important;
+    --color-foreground: var(--color-heading) !important;
+    --ui-foreground: var(--color-heading) !important;
 }
 
 /* ▼ サイドバー（Flux UI navlist の外側に効く） */
@@ -95,5 +95,5 @@ flux-sidebar,
 flux-navlist,
 flux-navlist-item,
 flux-navlist-group {
-    color: #002C47 !important;
+    color: var(--color-heading) !important;
 }
