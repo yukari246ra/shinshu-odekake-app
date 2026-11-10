@@ -36,6 +36,17 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
+        {{-- ②-2 写真（2枚目・任意） --}}
+        <flux:input
+            type="file"
+            wire:model="image2"
+            label="2枚目の写真（任意）"
+            accept="image/*"
+        />
+        @error('image2')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
         {{-- ③ 基本情報 --}}
         <flux:input wire:model="address" label="住所" placeholder="例：長野県安曇野市…" />
         @error('address')

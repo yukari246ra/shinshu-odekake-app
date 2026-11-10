@@ -18,9 +18,13 @@ class CreateSpot extends Component
     #[Validate("min:3", message: "スポット名は3文字以上で入力してください。")]
     public $name = "";
 
-    // ② 写真（必須ではないが画像チェックあり + サイズ上限追加）
+    // ② 写真（1枚目）
     #[Validate("nullable|image|max:2048", message: "画像は2MB以内で選択してください。")]
     public $image;
+
+    // ②-2 写真（2枚目・任意）
+    #[Validate("nullable|image|max:2048", message: "2枚目の画像は2MB以内で選択してください。")]
+    public $image2;
 
     // ③ 基本情報（住所／営業時間／定休日／電話番号）
     #[Validate("required", message: "住所は必須です。")]
@@ -60,6 +64,10 @@ class CreateSpot extends Component
             ? $this->image->store('spots', 'public')
             : null;
 
+        $imagePath2 = $this->image2
+            ? $this->image2->store('spots', 'public')
+            : null;
+
         Spot::create([
             'name' => $this->name,
             'category' => $this->category,
@@ -69,6 +77,7 @@ class CreateSpot extends Component
             'scene' => $this->scene,
 
             'image_path' => $imagePath,
+            'image_path_2' => $imagePath2,
 
             // 任意入力の追加項目
             'business_hours' => $this->business_hours,
@@ -87,6 +96,7 @@ class CreateSpot extends Component
             'description',
             'scene',
             'image',
+            'image2',
             'business_hours',
             'closed_days',
             'phone',

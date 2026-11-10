@@ -14,6 +14,7 @@ class Spot extends Model
         'description',
         'address',
         'image_path',
+        'image_path_2',
         'scene',
         'business_hours',
         'closed_days',
@@ -32,5 +33,13 @@ class Spot extends Model
         return $this->image_path
             ? asset('storage/' . $this->image_path)
             : asset('images/no-image.jpg');
+    }
+
+    // 2枚目がなければ null
+    public function getImageUrl2Attribute(): ?string
+    {
+        return $this->image_path_2
+            ? asset('storage/' . $this->image_path_2)
+            : null;
     }
 }

@@ -5,6 +5,7 @@
         ['icon' => 'calendar','label' => '定休日',   'value' => $spot->closed_days],
         ['icon' => 'truck',   'label' => '駐車場',   'value' => $spot->parking],
     ];
+    $hasSecond = (bool) $spot->image_url_2;
 @endphp
 
 <div class="mx-auto max-w-5xl space-y-8">
@@ -19,21 +20,30 @@
         一覧に戻る
     </flux:button>
 
-    {{-- 大きな写真（カテゴリ・エリア・シーンを重ねる） --}}
-    <div class="relative aspect-[16/9] overflow-hidden rounded-3xl bg-slate-100 md:aspect-[21/9]">
-        <img src="{{ $spot->image_url }}" alt="{{ $spot->name }}" class="h-full w-full object-cover">
+    {{-- 写真（2枚あれば横に並べる。1枚なら大きく表示） --}}
+    <div class="grid gap-3 {{ $hasSecond ? 'md:grid-cols-2' : '' }}">
 
-        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5">
-            <div class="flex flex-wrap gap-2">
-                @foreach ([$spot->category, $spot->area, $spot->scene] as $label)
-                    @if ($label)
-                        <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-[#002C47] shadow">
-                            {{ $label }}
-                        </span>
-                    @endif
-                @endforeach
+        <div class="relative overflow-hidden rounded-3xl bg-slate-100 {{ $hasSecond ? 'aspect-[4/3]' : 'aspect-[16/9] md:aspect-[21/9]' }}">
+            <img src="{{ $spot->image_url }}" alt="{{ $spot->name }}" class="h-full w-full object-cover">
+
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5">
+                <div class="flex flex-wrap gap-2">
+                    @foreach ([$spot->category, $spot->area, $spot->scene] as $label)
+                        @if ($label)
+                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-[#002C47] shadow">
+                                {{ $label }}
+                            </span>
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
+
+        @if ($hasSecond)
+            <div class="relative aspect-[4/3] overflow-hidden rounded-3xl bg-slate-100">
+                <img src="{{ $spot->image_url_2 }}" alt="{{ $spot->name }}（2枚目）" class="h-full w-full object-cover">
+            </div>
+        @endif
     </div>
 
     {{-- タイトルとお気に入り --}}

@@ -31,9 +31,13 @@ class EditSpot extends Component
     #[Validate('required')]
     public $description = '';
 
-    // ▼ 新しい画像アップロード用（サイズ上限 2MB を追加）
+    // ▼ 新しい画像アップロード用（1枚目）
     #[Validate("nullable|image|max:2048", message: "画像は2MB以内で選択してください。")]
     public $image;
+
+    // ▼ 新しい画像アップロード用（2枚目）
+    #[Validate("nullable|image|max:2048", message: "2枚目の画像は2MB以内で選択してください。")]
+    public $image2;
 
     // ▼ 追加項目（任意）
     public $business_hours;
@@ -74,8 +78,11 @@ class EditSpot extends Component
 
         // ▼ 新しい画像がアップロードされた場合のみ更新
         if ($this->image) {
-            $imagePath = $this->image->store('spots', 'public');
-            $this->spot->image_path = $imagePath;
+            $this->spot->image_path = $this->image->store('spots', 'public');
+        }
+
+        if ($this->image2) {
+            $this->spot->image_path_2 = $this->image2->store('spots', 'public');
         }
 
         // ▼ テキスト項目を更新
@@ -87,6 +94,7 @@ class EditSpot extends Component
             'address' => $this->address,
             'description' => $this->description,
             'image_path' => $this->spot->image_path,
+            'image_path_2' => $this->spot->image_path_2,
 
             // ▼ 追加項目
             'business_hours' => $this->business_hours,

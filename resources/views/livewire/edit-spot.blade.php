@@ -45,6 +45,28 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
+        {{-- 2枚目の画像 --}}
+        @if ($spot->image_path_2)
+            <div class="mt-4">
+                <flux:text class="text-sm font-medium text-[#002C47]">現在の2枚目の画像</flux:text>
+                <img
+                    src="{{ asset('storage/' . $spot->image_path_2) }}"
+                    alt="現在の2枚目の画像"
+                    class="w-48 h-48 object-cover rounded-lg mt-2"
+                >
+            </div>
+        @endif
+
+        <flux:input
+            type="file"
+            wire:model="image2"
+            label="2枚目の画像（追加・変更する場合のみ）"
+            accept="image/*"
+        />
+        @error('image2')
+            <flux:text class="text-red-600">{{ $message }}</flux:text>
+        @enderror
+
         {{-- ③ 基本情報 --}}
         <flux:input wire:model="address" label="住所" placeholder="例：長野県安曇野市…" />
         <flux:input wire:model="business_hours" label="営業時間" placeholder="例：9:00〜17:00" />
