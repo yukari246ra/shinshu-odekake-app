@@ -10,7 +10,7 @@
 
 /* ▼ テーマカラー（必要なものだけ残す） */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
 
     --color-accent: #229CA1;
     --color-accent-content: #229CA1;
