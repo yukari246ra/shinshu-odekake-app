@@ -1,121 +1,101 @@
-<div class="max-w-2xl mx-auto p-6 space-y-8">
+<div class="max-w-6xl mx-auto p-6 space-y-8">
 
-    {{-- ▼ ページタイトル --}}
-    <h1 class="text-2xl font-bold text-heading mb-6 flex items-center gap-2">
-        <flux:icon name="magnifying-glass" class="w-6 h-6" />
+    {{-- ▼ ページタイトル（h1） --}}
+    <h1 class="text-2xl md:text-3xl font-bold text-heading flex items-center gap-2">
+        <flux:icon name="magnifying-glass" class="w-6 h-6 text-accent" />
         絞り込み検索
     </h1>
 
-    {{-- ▼ 検索フォーム --}}
-    <div class="grid gap-4">
+    {{-- ▼ 検索フォーム（1枚のカードにまとめる） --}}
+    <div class="border border-subtle rounded-lg p-6 shadow-sm bg-white dark:bg-zinc-800 space-y-6">
 
-        {{-- 利用シーン --}}
-        <label class="text-sm font-medium text-heading flex items-center gap-2">
-            <flux:icon name="sparkles" class="w-4 h-4" />
-            利用シーン
-        </label>
-        <flux:select wire:model="scene" placeholder="選択してください">
-            <option value="">選択してください</option>
-            <option value="家族">家族</option>
-            <option value="カップル">カップル</option>
-            <option value="友達">友達</option>
-            <option value="ひとり">ひとり</option>
-        </flux:select>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        {{-- エリア --}}
-        <label class="text-sm font-medium text-heading flex items-center gap-2">
-            <flux:icon name="map-pin" class="w-4 h-4" />
-            エリア
-        </label>
-        <flux:select wire:model="area" placeholder="選択してください">
-            <option value="">選択してください</option>
-            <option value="北信">北信</option>
-            <option value="中信">中信</option>
-            <option value="東信">東信</option>
-            <option value="南信">南信</option>
-        </flux:select>
+            {{-- 利用シーン --}}
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-heading flex items-center gap-2">
+                    <flux:icon name="sparkles" class="w-4 h-4" />
+                    利用シーン
+                </label>
+                <flux:select wire:model.live="scene">
+                    <option value="">指定しない</option>
+                    <option value="家族">家族</option>
+                    <option value="カップル">カップル</option>
+                    <option value="友達">友達</option>
+                    <option value="ひとり">ひとり</option>
+                </flux:select>
+            </div>
 
-        {{-- カテゴリ --}}
-        <label class="text-sm font-medium text-heading flex items-center gap-2">
-            <flux:icon name="tag" class="w-4 h-4" />
-            カテゴリ
-        </label>
-        <flux:select wire:model="category" placeholder="選択してください">
-            <option value="">選択してください</option>
-            <option value="レストラン">レストラン</option>
-            <option value="カフェ">カフェ</option>
-            <option value="公園">公園</option>
-            <option value="観光地">観光地</option>
-            <option value="ショッピング">ショッピング</option>
-            <option value="温泉">温泉</option>
-        </flux:select>
+            {{-- エリア --}}
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-heading flex items-center gap-2">
+                    <flux:icon name="map-pin" class="w-4 h-4" />
+                    エリア
+                </label>
+                <flux:select wire:model.live="area">
+                    <option value="">指定しない</option>
+                    <option value="北信">北信</option>
+                    <option value="中信">中信</option>
+                    <option value="東信">東信</option>
+                    <option value="南信">南信</option>
+                </flux:select>
+            </div>
 
-        {{-- ▼ 検索ボタン --}}
-        <div class="pt-4">
+            {{-- カテゴリ --}}
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-heading flex items-center gap-2">
+                    <flux:icon name="tag" class="w-4 h-4" />
+                    カテゴリ
+                </label>
+                <flux:select wire:model.live="category">
+                    <option value="">指定しない</option>
+                    <option value="レストラン">レストラン</option>
+                    <option value="カフェ">カフェ</option>
+                    <option value="公園">公園</option>
+                    <option value="観光地">観光地</option>
+                    <option value="ショッピング">ショッピング</option>
+                    <option value="温泉">温泉</option>
+                </flux:select>
+            </div>
+
+        </div>
+
+        {{-- ▼ 件数とクリアボタン --}}
+        <div class="flex items-center justify-between">
+            <p class="text-sm text-heading">
+                @if ($hasFilter)
+                    {{ $results->count() }} 件のスポットが見つかりました
+                @else
+                    条件を選ぶと、ここに結果が表示されます
+                @endif
+            </p>
+
             <flux:button
-                wire:click="search"
-                class="w-full h-10 rounded-lg ui-button--subtle"
+                wire:click="resetFilters"
+                class="h-10 rounded-lg ui-button--subtle"
             >
-
-                検索する
+                条件をクリア
             </flux:button>
         </div>
 
     </div>
 
-    {{-- ▼ 検索結果 --}}
-    <div class="space-y-6">
-        @foreach($results as $spot)
-            <article class="border border-subtle rounded-lg p-4 shadow-sm bg-white dark:bg-zinc-800 flex gap-4 overflow-hidden">
-
-                {{-- ▼ 写真 --}}
-                @if ($spot->image_path)
-                    <img
-                        src="{{ asset('storage/' . $spot->image_path) }}"
-                        alt="{{ $spot->name }}"
-                        class="w-48 h-36 object-cover rounded-lg flex-shrink-0"
-                    >
-                @endif
-
-                {{-- ▼ テキスト --}}
-                <div class="flex-1">
-                    <a href="/spots/{{ $spot->id }}">
-
-                        {{-- 日付 --}}
-                        <flux:text class="mt-2 text-sm flex items-center gap-2">
-                            <flux:icon name="calendar" class="w-4 h-4" />
-                            {{ $spot->created_at->format('y/m/d') }}
-                        </flux:text>
-
-                        {{-- 見出し --}}
-                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-heading flex items-center gap-2">
-                            <flux:icon name="map" class="w-5 h-5" />
-                            {{ $spot->name }}
-                        </flux:heading>
-
-                        {{-- 説明文 --}}
-                        <flux:text class="mt-3 leading-relaxed flex items-center gap-2">
-                            <flux:icon name="information-circle" class="w-4 h-4" />
-                            {{ Str::limit($spot->description, 150) }}
-                        </flux:text>
-
-                        {{-- カテゴリ・エリア --}}
-                        <flux:text class="mt-4 text-sm flex items-center gap-2">
-                            <flux:icon name="tag" class="w-4 h-4" />
-                            カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
-                        </flux:text>
-
-                        {{-- 利用シーン --}}
-                        <flux:text class="mt-4 text-sm flex items-center gap-2">
-                            <flux:icon name="sparkles" class="w-4 h-4" />
-                            利用シーン: {{ $spot->scene }}
-                        </flux:text>
-
-                    </a>
-                </div>
-
-            </article>
-        @endforeach
-    </div>
+    {{-- ▼ 検索結果（トップと同じカードのグリッド） --}}
+    @if ($hasFilter)
+        @if ($results->count())
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($results as $spot)
+                    @include('livewire.partials.spot-card', [
+                        'spot' => $spot,
+                        'prefix' => 'search',
+                    ])
+                @endforeach
+            </div>
+        @else
+            <p class="text-base text-heading py-12 text-center">
+                条件に合うスポットが見つかりませんでした。条件を変えてみてください。
+            </p>
+        @endif
+    @endif
 
 </div>
