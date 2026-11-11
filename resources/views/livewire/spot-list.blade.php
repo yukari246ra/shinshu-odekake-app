@@ -1,8 +1,8 @@
-<div class="max-w-3xl mx-auto p-6 space-y-8">
+<div class="max-w-6xl mx-auto p-6 space-y-8">
 
-    {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
-    <h1 class="text-2xl font-bold text-heading mb-6 flex items-center gap-2">
-        <flux:icon name="map-pin" class="w-6 h-6" />
+    {{-- ▼ ページタイトル（h1） --}}
+    <h1 class="text-2xl md:text-3xl font-bold text-heading flex items-center gap-2">
+        <flux:icon name="map-pin" class="w-6 h-6 text-accent" />
         スポット一覧
     </h1>
 
@@ -14,72 +14,37 @@
         </div>
     @endif
 
-    {{-- ▼ フリーワード検索（統一：gap-4 / h-10） --}}
-    <div class="flex items-center gap-4 mb-6">
+    {{-- ▼ フリーワード検索 --}}
+    <div class="flex items-center gap-4">
         <flux:input
             wire:model.live="search"
             icon="magnifying-glass"
-            class="w-64 h-10"
+            class="w-full md:max-w-md"
             placeholder="キーワードで検索（名前・説明・住所など）"
         />
+        <p class="text-sm text-heading whitespace-nowrap">
+            全 {{ $spots->total() }} 件
+        </p>
     </div>
 
-    {{-- ▼ 検索結果一覧 --}}
-    <div class="space-y-6">
-        @foreach ($spots as $spot)
-            <article class="border border-subtle rounded-lg p-4 shadow-sm bg-white dark:bg-zinc-800 flex gap-4 overflow-hidden">
+    {{-- ▼ カードのグリッド（トップと同じカードを使い回す） --}}
+    @if ($spots->count())
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach ($spots as $spot)
+                @include('livewire.partials.spot-card', [
+                    'spot' => $spot,
+                    'prefix' => 'list',
+                ])
+            @endforeach
+        </div>
+    @else
+        <p class="text-base text-heading py-12 text-center">
+            条件に合うスポットが見つかりませんでした。
+        </p>
+    @endif
 
-                {{-- ▼ 写真 --}}
-                @if ($spot->image_path)
-                    <img
-                        src="{{ asset('storage/' . $spot->image_path) }}"
-                        alt="{{ $spot->name }}"
-                        class="w-48 h-36 object-cover rounded-lg flex-shrink-0"
-                    >
-                @endif
-
-                {{-- ▼ テキスト --}}
-                <div class="flex-1">
-                    <a href="/spots/{{ $spot->id }}">
-
-                        {{-- 日付 --}}
-                        <flux:text class="mt-2 text-sm flex items-center gap-2">
-                            <flux:icon name="calendar" class="w-4 h-4" />
-                            {{ $spot->created_at->format('y/m/d') }}
-                        </flux:text>
-
-                        {{-- ▼ 見出し（ジャンプ率：h2 → text-xl） --}}
-                        <flux:heading size="lg" level="2" class="mt-2 text-xl font-semibold text-heading flex items-center gap-2">
-                            <flux:icon name="map" class="w-5 h-5" />
-                            {{ $spot->name }}
-                        </flux:heading>
-
-                        {{-- 説明文（読みやすさ：leading-relaxed） --}}
-                        <flux:text class="mt-3 leading-relaxed flex items-center gap-2">
-                            <flux:icon name="information-circle" class="w-4 h-4" />
-                            {{ Str::limit($spot->description, 100) }}
-                        </flux:text>
-
-                        {{-- カテゴリ・エリア --}}
-                        <flux:text class="mt-4 text-sm flex items-center gap-2">
-                            <flux:icon name="tag" class="w-4 h-4" />
-                            カテゴリ: {{ $spot->category }} / エリア: {{ $spot->area }}
-                        </flux:text>
-
-                        {{-- 利用シーン --}}
-                        <flux:text class="mt-2 text-sm flex items-center gap-2">
-                            <flux:icon name="sparkles" class="w-4 h-4" />
-                            利用シーン: {{ $spot->scene }}
-                        </flux:text>
-
-                    </a>
-                </div>
-
-            </article>
-        @endforeach
-    </div>
-
-    <div class="mt-8 flex justify-end">
+    {{-- ▼ ページネーション（残す） --}}
+    <div class="flex justify-end">
         {{ $spots->links() }}
     </div>
 

@@ -12,23 +12,23 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
 
-    --color-accent: #008689;
-    --color-accent-content: #008689;
+    --color-accent: #229CA1;
+    --color-accent-content: #229CA1;
     --color-accent-foreground: #ffffff;
 
-    --color-subtle: #BDC8D0;
-    --color-link: #007BBC;
-    --color-favorite: #CD1C34;
+    --color-subtle: #C58CE6;
+    --color-link: #1C7ADE;
+    --color-favorite: #DD2654;
 
-    --color-heading: #002C47;
+    --color-heading: #1E4879;
     --color-background: #FFFFFF;
 }
 
 /* ▼ ダークモード（必要最低限） */
 @layer theme {
     .dark {
-        --color-accent: #008689;
-        --color-accent-content: #008689;
+        --color-accent: #229CA1;
+        --color-accent-content: #229CA1;
         --color-accent-foreground: #ffffff;
     }
 }
