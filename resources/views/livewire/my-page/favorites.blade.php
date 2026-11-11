@@ -1,78 +1,42 @@
-<div class="max-w-3xl mx-auto p-6">
+<div class="max-w-6xl mx-auto p-6 space-y-8">
 
-    {{-- ▼ ページタイトル --}}
-    <h1 class="text-2xl font-bold mb-6 text-heading flex items-center gap-2">
-        <flux:icon name="user" class="w-6 h-6" />
-        マイページ
+    {{-- ▼ ページタイトル（h1） --}}
+    <h1 class="text-2xl md:text-3xl font-bold text-heading flex items-center gap-2">
+        <flux:icon name="heart" class="w-6 h-6 text-favorite" />
+        お気に入りスポット
     </h1>
 
-    <div class="mb-8">
+    @if ($spots->isEmpty())
 
-        {{-- ▼ セクションタイトル --}}
-        <h2 class="text-xl font-semibold mb-4 text-heading flex items-center gap-2">
-            <flux:icon name="heart" class="w-5 h-5" />
-            お気に入りスポット
-        </h2>
+        {{-- ▼ お気に入りが0件のとき --}}
+        <div class="border border-subtle rounded-lg p-10 shadow-sm bg-white dark:bg-zinc-800 text-center space-y-4">
+            <p class="text-base text-heading">お気に入りはまだありません。</p>
+            <p class="text-sm text-heading">
+                気になるスポットのハートを押すと、ここに追加されます。
+            </p>
+            <a
+                href="/spots"
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-link text-white hover:opacity-90"
+            >
+                <flux:icon name="map-pin" class="w-4 h-4" />
+                スポット一覧を見る
+            </a>
+        </div>
 
-        @if ($favorites->isEmpty())
-            <p class="text-slate-500">お気に入りはまだありません。</p>
-        @else
-            <div class="grid grid-cols-1 gap-4">
-                @foreach ($favorites as $favorite)
-                    <div class="p-4 border rounded-xl shadow-sm bg-white dark:bg-zinc-800">
+    @else
 
-                        <div class="flex items-center gap-4">
+        <p class="text-sm text-heading">全 {{ $spots->count() }} 件</p>
 
-                            {{-- ▼ 写真 --}}
-                            @if ($favorite->spot->image_path)
-                                <img
-                                    src="{{ asset('storage/' . $favorite->spot->image_path) }}"
-                                    class="w-24 h-24 object-cover rounded"
-                                >
-                            @endif
+        {{-- ▼ カードのグリッド（トップと同じカードを使い回す） --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach ($spots as $spot)
+                @include('livewire.partials.spot-card', [
+                    'spot' => $spot,
+                    'prefix' => 'fav',
+                ])
+            @endforeach
+        </div>
 
-                            {{-- ▼ テキスト --}}
-                            <div class="flex-1">
-
-                                {{-- スポット名 --}}
-                                <div class="font-bold text-lg text-heading flex items-center gap-2">
-                                    <flux:icon name="map" class="w-5 h-5" />
-                                    {{ $favorite->spot->name }}
-                                </div>
-
-                                {{-- エリア / シーン --}}
-                                <div class="text-sm text-slate-500 flex items-center gap-3 mt-1">
-
-                                    <span class="flex items-center gap-1">
-                                        <flux:icon name="map-pin" class="w-4 h-4" />
-                                        {{ $favorite->spot->area }}
-                                    </span>
-
-                                    <span class="flex items-center gap-1">
-                                        <flux:icon name="sparkles" class="w-4 h-4" />
-                                        {{ $favorite->spot->scene }}
-                                    </span>
-
-                                </div>
-
-                                {{-- 詳細ボタン --}}
-                                <a
-                                    href="{{ route('spot', $favorite->spot->id) }}"
-                                    class="inline-flex items-center gap-2 mt-2 px-3 py-1 text-sm rounded bg-link text-white hover:opacity-90"
-                                >
-                                    <flux:icon name="arrow-right" class="w-4 h-4" />
-                                    詳細を見る
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-    </div>
+    @endif
 
 </div>
