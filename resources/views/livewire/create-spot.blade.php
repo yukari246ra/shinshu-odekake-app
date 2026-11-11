@@ -1,7 +1,7 @@
 <div class="max-w-3xl mx-auto p-6 space-y-8">
 
     {{-- ▼ ページタイトル（ジャンプ率：h1） --}}
-    <h1 class="text-2xl font-bold text-heading mb-6">
+    <h1 class="text-2xl md:text-3xl font-bold text-heading mb-6">
         スポット作成ページ
     </h1>
 

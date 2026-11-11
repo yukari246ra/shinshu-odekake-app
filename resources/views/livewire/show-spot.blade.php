@@ -49,7 +49,7 @@
     {{-- タイトルとお気に入り --}}
     <div class="flex flex-wrap items-start justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-heading md:text-3xl">{{ $spot->name }}</h1>
+            <h1 class="text-2xl md:text-3xl font-bold text-heading">{{ $spot->name }}</h1>
             <p class="mt-1 flex items-center gap-1 text-sm text-slate-500">
                 <flux:icon name="map-pin" class="size-4" />
                 {{ $spot->address }}
@@ -117,7 +117,7 @@
         {{-- 右：基本情報カード --}}
         <aside>
             <div class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:bg-zinc-800 lg:sticky lg:top-6">
-                <h2 class="text-lg font-bold text-heading">基本情報</h2>
+                <h2 class="text-xl font-bold text-heading">基本情報</h2>
 
                 <dl class="space-y-4">
                     @foreach ($infos as $info)

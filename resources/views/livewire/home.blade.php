@@ -8,7 +8,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
         <div class="relative flex h-full flex-col items-center justify-center px-4 text-center text-white">
-            <h1 class="text-2xl font-bold md:text-4xl">次の週末は、信州へ。</h1>
+            <h1 class="text-2xl md:text-3xl font-bold">次の週末は、信州へ。</h1>
             <p class="mt-2 text-sm md:text-base">景色・温泉・グルメ。お気に入りのスポットを見つけよう。</p>
 
             <div class="mt-6 w-full max-w-xl">

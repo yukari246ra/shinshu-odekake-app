@@ -1,18 +1,19 @@
+
 <x-layouts.app.sidebar :title="$title ?? null">
 
     <flux:main class="!p-0">
 
-        <header class="w-full flex items-center justify-between px-6 py-4 bg-[var(--color-subtle)] dark:bg-[var(--color-strong)] border-b border-zinc-300 dark:border-zinc-700">
+        <header class="flex w-full flex-wrap items-center justify-between gap-3 border-b border-zinc-300 bg-[var(--color-subtle)] px-4 py-3 dark:border-zinc-700 dark:bg-[var(--color-strong)] sm:px-6 sm:py-4">
 
             <a href="{{ route('home') }}"
-               class="flex items-center gap-2 text-xl font-bold rounded bg-[var(--color-accent)] text-white px-4 py-2">
-                <flux:icon name="truck" class="w-5 h-5" />
+               class="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg bg-[var(--color-accent)] px-3 py-2 text-base font-bold text-white sm:px-4 sm:text-xl">
+                <flux:icon name="truck" class="h-5 w-5 shrink-0" />
                 信州おでかけアプリ
             </a>
 
             <a href="{{ route('mypage') }}"
-               class="flex items-center gap-2 px-4 py-2 rounded bg-[var(--color-accent)] text-white font-medium hover:bg-opacity-90">
-                <flux:icon name="user" class="w-5 h-5" />
+               class="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg bg-[var(--color-accent)] px-3 py-2 text-sm font-medium text-white hover:bg-opacity-90 sm:px-4 sm:text-base">
+                <flux:icon name="user" class="h-5 w-5 shrink-0" />
                 マイページ
             </a>
 
