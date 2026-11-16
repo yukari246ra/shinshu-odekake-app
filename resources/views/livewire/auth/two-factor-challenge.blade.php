@@ -1,3 +1,4 @@
+
 <x-layouts.auth>
     <div class="flex flex-col gap-6">
         <div
@@ -25,15 +26,15 @@
         >
             <div x-show="!showRecoveryInput">
                 <x-auth-header
-                    :title="__('Authentication Code')"
-                    :description="__('Enter the authentication code provided by your authenticator application.')"
+                    :title="__('認証コード')"
+                    :description="__('認証アプリに表示されている認証コードを入力してください')"
                 />
             </div>
 
             <div x-show="showRecoveryInput">
                 <x-auth-header
-                    :title="__('Recovery Code')"
-                    :description="__('Please confirm access to your account by entering one of your emergency recovery codes.')"
+                    :title="__('リカバリーコード')"
+                    :description="__('アカウントへのアクセスを確認するため、緊急用のリカバリーコードを1つ入力してください')"
                 />
             </div>
 
@@ -82,15 +83,15 @@
                         type="submit"
                         class="w-full"
                     >
-                        {{ __('Continue') }}
+                        {{ __('続行する') }}
                     </flux:button>
                 </div>
 
                 <div class="mt-5 space-x-0.5 text-sm leading-5 text-center">
-                    <span class="opacity-50">{{ __('or you can') }}</span>
+                    <span class="opacity-50">{{ __('または') }}</span>
                     <div class="inline font-medium underline cursor-pointer opacity-80">
-                        <span x-show="!showRecoveryInput" @click="toggleInput()">{{ __('login using a recovery code') }}</span>
-                        <span x-show="showRecoveryInput" @click="toggleInput()">{{ __('login using an authentication code') }}</span>
+                        <span x-show="!showRecoveryInput" @click="toggleInput()">{{ __('リカバリーコードでログインする') }}</span>
+                        <span x-show="showRecoveryInput" @click="toggleInput()">{{ __('認証コードでログインする') }}</span>
                     </div>
                 </div>
             </form>
