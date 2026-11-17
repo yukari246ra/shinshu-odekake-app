@@ -12,23 +12,23 @@
 @theme {
     --font-sans: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
 
-    --color-accent: #229CA1;
-    --color-accent-content: #229CA1;
+    --color-accent: #26AFA4;
+    --color-accent-content: #26AFA4;
     --color-accent-foreground: #ffffff;
 
-    --color-subtle: #C58CE6;
-    --color-link: #1C7ADE;
+    --color-subtle: #0F6B64;
+    --color-link: #1F5EE0;
     --color-favorite: #DD2654;
 
-    --color-heading: #1E4879;
+    --color-heading: #203C6A;
     --color-background: #FFFFFF;
 }
 
 /* ▼ ダークモード（必要最低限） */
 @layer theme {
     .dark {
-        --color-accent: #229CA1;
-        --color-accent-content: #229CA1;
+        --color-accent: #26AFA4
+        --color-accent-content: #26AFA4;
         --color-accent-foreground: #ffffff;
     }
 }
@@ -52,12 +52,12 @@ select:focus[data-flux-control] {
 @layer components {
     .ui-button--subtle {
         background-color: var(--color-subtle) !important;
-        color: var(--color-heading) !important;
+        color: #ffffff !important;
         border-radius: 8px;
     }
 
     .ui-button--subtle:hover {
-        background-color: #e5eaed !important;
+        background-color: #19877E !important;
     }
 }
 
@@ -70,6 +70,12 @@ select:focus[data-flux-control] {
     .text-neutral-800 {
         color: var(--color-heading) !important;
     }
+
+    /* subtleボタンの文字色を白にする */
+    .ui-button--subtle.text-zinc-800 {
+        color: #ffffff !important;
+    }
+
 }
 
 /* ▼ Flux UI のテキスト系（Shadow DOM 外） */
