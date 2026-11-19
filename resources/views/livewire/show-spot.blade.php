@@ -28,12 +28,15 @@
 
             <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5">
                 <div class="flex flex-wrap gap-2">
-                    @foreach ([$spot->category, $spot->area, $spot->scene] as $label)
-                        @if ($label)
-                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-heading shadow">
-                                {{ $label }}
-                            </span>
-                        @endif
+                    @foreach (array_filter([$spot->category, $spot->area]) as $label)
+                        <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-heading shadow">
+                            {{ $label }}
+                        </span>
+                    @endforeach
+                    @foreach ($spot->sceneNames() as $sceneName)
+                        <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-heading shadow">
+                            {{ $sceneName }}
+                        </span>
                     @endforeach
                 </div>
             </div>

@@ -12,7 +12,7 @@ class SpotList extends Component
     use WithPagination;
 
     public $search = '';
-    public $scene = '';
+    public array $scenes = [];
     public $area = '';
     public $category = '';
 
@@ -21,7 +21,7 @@ class SpotList extends Component
         $this->resetPage();
     }
 
-    public function updatedScene()
+    public function updatedScenes()
     {
         $this->resetPage();
     }
@@ -56,18 +56,25 @@ class SpotList extends Component
     public function render()
     {
         $spots = Spot::query()
+            ->with('sceneSpots')
             ->withCount('favorites')
             ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('name', 'like', "%{$this->search}%")
-                        ->orWhere('description', 'like', "%{$this->search}%")
-                        ->orWhere('address', 'like', "%{$this->search}%")
-                        ->orWhere('scene', 'like', "%{$this->search}%")
-                        ->orWhere('area', 'like', "%{$this->search}%")
-                        ->orWhere('category', 'like', "%{$this->search}%");
+                $keyword = '%' . $this->search . '%';
+
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('name', 'like', $keyword)
+                        ->orWhere('description', 'like', $keyword)
+                        ->orWhere('address', 'like', $keyword)
+                        ->orWhere('area', 'like', $keyword)
+                        ->orWhere('category', 'like', $keyword)
+                        ->orWhereHas('sceneSpots', fn ($sq) => $sq->where('scene', 'like', $keyword))
+                        ->orWhere(function ($legacy) use ($keyword) {
+                            $legacy->whereDoesntHave('sceneSpots')
+                                ->where('scene', 'like', $keyword);
+                        });
                 });
             })
-            ->when($this->scene !== '', fn($q) => $q->where('scene', $this->scene))
+            ->matchingScenes($this->scenes)
             ->when($this->area !== '', fn($q) => $q->where('area', $this->area))
             ->when($this->category !== '', fn($q) => $q->where('category', $this->category))
             ->orderBy('created_at', 'desc')

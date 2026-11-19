@@ -8,14 +8,14 @@ use App\Models\Spot;
 
 class SearchSpots extends Component
 {
-    public $scene = '';
+    public $scenes = '';
     public $area = '';
     public $category = '';
 
     // ▼ 条件をすべてクリアする
     public function resetFilters()
     {
-        $this->scene = '';
+        $this->scenes = '';
         $this->area = '';
         $this->category = '';
     }
@@ -40,14 +40,15 @@ class SearchSpots extends Component
     public function render()
     {
         // ▼ 条件が1つでも選ばれているか
-        $hasFilter = $this->scene !== '' || $this->area !== '' || $this->category !== '';
+        $hasFilter = $this->scenes !== '' || $this->area !== '' || $this->category !== '';
 
         $results = collect();
 
         if ($hasFilter) {
             $results = Spot::query()
+                ->with('sceneSpots')
                 ->withCount('favorites')
-                ->when($this->scene !== '', fn($q) => $q->where('scene', $this->scene))
+                ->matchingScenes($this->scenes !== '' ? [$this->scenes] : [])
                 ->when($this->area !== '', fn($q) => $q->where('area', $this->area))
                 ->when($this->category !== '', fn($q) => $q->where('category', $this->category))
                 ->orderBy('created_at', 'desc')

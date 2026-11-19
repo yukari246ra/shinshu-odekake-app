@@ -17,12 +17,14 @@
                     <flux:icon name="sparkles" class="w-4 h-4" />
                     利用シーン
                 </label>
-                <flux:select wire:model.live="scene">
+
+                <flux:select wire:model.live="scenes">
                     <option value="">指定しない</option>
-                    <option value="家族">家族</option>
-                    <option value="カップル">カップル</option>
-                    <option value="友達">友達</option>
-                    <option value="ひとり">ひとり</option>
+                    @foreach (\App\Models\Spot::SCENES as $sceneOption)
+                        <option value="{{ $sceneOption }}">
+                            {{ $sceneOption }}
+                        </option>
+                    @endforeach
                 </flux:select>
             </div>
 

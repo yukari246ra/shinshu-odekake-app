@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Spot;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
@@ -16,8 +18,7 @@ class EditSpot extends Component
     #[Validate('required|min:3')]
     public $name = '';
 
-    #[Validate('required')]
-    public $scene = '';
+    public array $scenes = [];
 
     #[Validate('required')]
     public $area = '';
@@ -49,6 +50,23 @@ class EditSpot extends Component
     #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
 
+    public function rules(): array
+    {
+        return [
+            'scenes' => ['required', 'array', 'min:1'],
+            'scenes.*' => ['string', Rule::in(Spot::SCENES)],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'scenes.required' => '利用シーンは1つ以上選択してください。',
+            'scenes.min' => '利用シーンは1つ以上選択してください。',
+            'scenes.*.in' => '利用シーンの値が正しくありません。',
+        ];
+    }
+
     public function mount(Spot $spot)
     {
         // ▼ 認可②：管理者以外は編集ページを開けない
@@ -58,7 +76,7 @@ class EditSpot extends Component
 
         // 初期値セット
         $this->name = $spot->name;
-        $this->scene = $spot->scene;
+        $this->scenes = $this->currentScenes($spot);
         $this->area = $spot->area;
         $this->category = $spot->category;
         $this->address = $spot->address;
@@ -76,33 +94,37 @@ class EditSpot extends Component
     {
         $this->validate();
 
-        // ▼ 新しい画像がアップロードされた場合のみ更新
-        if ($this->image) {
-            $this->spot->image_path = $this->image->store('spots', 'public');
-        }
+        DB::transaction(function () {
+            // ▼ 新しい画像がアップロードされた場合のみ更新
+            if ($this->image) {
+                $this->spot->image_path = $this->image->store('spots', 'public');
+            }
 
-        if ($this->image2) {
-            $this->spot->image_path_2 = $this->image2->store('spots', 'public');
-        }
+            if ($this->image2) {
+                $this->spot->image_path_2 = $this->image2->store('spots', 'public');
+            }
 
-        // ▼ テキスト項目を更新
-        $this->spot->update([
-            'name' => $this->name,
-            'scene' => $this->scene,
-            'area' => $this->area,
-            'category' => $this->category,
-            'address' => $this->address,
-            'description' => $this->description,
-            'image_path' => $this->spot->image_path,
-            'image_path_2' => $this->spot->image_path_2,
+            // ▼ テキスト項目を更新
+            $this->spot->update([
+                'name' => $this->name,
+                'area' => $this->area,
+                'category' => $this->category,
+                'address' => $this->address,
+                'description' => $this->description,
+                'image_path' => $this->spot->image_path,
+                'image_path_2' => $this->spot->image_path_2,
 
-            // ▼ 追加項目
-            'business_hours' => $this->business_hours,
-            'closed_days' => $this->closed_days,
-            'phone' => $this->phone,
-            'parking' => $this->parking,
-            'website_url' => $this->website_url,
-        ]);
+                // ▼ 追加項目
+                'business_hours' => $this->business_hours,
+                'closed_days' => $this->closed_days,
+                'phone' => $this->phone,
+                'parking' => $this->parking,
+                'website_url' => $this->website_url,
+            ]);
+
+            // spots.scene は互換性のため変更しない
+            $this->spot->syncScenes($this->scenes);
+        });
 
         session()->flash('status', 'スポットを更新しました！');
 
@@ -121,5 +143,17 @@ class EditSpot extends Component
     public function render()
     {
         return view('livewire.edit-spot');
+    }
+
+    // scene_spot を優先し、未登録の既存データだけ spots.scene を初期表示する
+    private function currentScenes(Spot $spot): array
+    {
+        $scenes = $spot->sceneSpots()->pluck('scene')->all();
+
+        if ($scenes === [] && filled($spot->scene)) {
+            $scenes = [$spot->scene];
+        }
+
+        return array_values(array_intersect(Spot::SCENES, $scenes));
     }
 }

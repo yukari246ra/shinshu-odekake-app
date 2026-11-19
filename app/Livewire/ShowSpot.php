@@ -35,8 +35,11 @@ class ShowSpot extends Component
     public function render()
     {
         // 同じエリアのスポット（自分自身は除く・人気順）
+        $this->spot->loadMissing('sceneSpots');
+
         $sameArea = $this->spot->area
             ? Spot::query()
+                ->with('sceneSpots')
                 ->withCount('favorites')
                 ->where('id', '!=', $this->spot->id)
                 ->where('area', $this->spot->area)
@@ -49,6 +52,7 @@ class ShowSpot extends Component
         // 同じカテゴリのスポット
         $sameCategory = $this->spot->category
             ? Spot::query()
+                ->with('sceneSpots')
                 ->withCount('favorites')
                 ->where('id', '!=', $this->spot->id)
                 ->where('category', $this->spot->category)

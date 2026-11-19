@@ -63,17 +63,26 @@
         {{-- ⑤ 外部サイト --}}
         <flux:input wire:model="website_url" label="公式サイトURL" placeholder="例：https://example.com" />
 
-        {{-- ⑥ セレクト系 --}}
-        <flux:select wire:model="scene" label="利用シーン" placeholder="選択してください">
-            <option value="">選択してください</option>
-            <option value="家族">家族</option>
-            <option value="カップル">カップル</option>
-            <option value="友達">友達</option>
-            <option value="ひとり">ひとり</option>
-        </flux:select>
-        @error('scene')
+        {{-- ⑥ 利用シーン（複数選択） --}}
+        <div class="space-y-2">
+            <span class="text-sm font-medium text-heading">利用シーン</span>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+                @foreach (\App\Models\Spot::SCENES as $sceneOption)
+                    <label class="inline-flex items-center gap-2 text-sm text-heading">
+                        <flux:checkbox wire:model="scenes" :value="$sceneOption" />
+                        {{ $sceneOption }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
+        @error('scenes')
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
+        @foreach ($errors->get('scenes.*') as $sceneErrors)
+            @foreach ($sceneErrors as $message)
+                <flux:text class="text-red-600">{{ $message }}</flux:text>
+            @endforeach
+        @endforeach
 
         <flux:select wire:model="area" label="エリア" placeholder="選択してください">
             <option value="">選択してください</option>

@@ -1,5 +1,9 @@
 <div wire:key="{{ $prefix }}-{{ $spot->id }}" class="group">
 
+    @php
+        $sceneNames = $spot->sceneNames();
+    @endphp
+
     <div class="relative overflow-hidden rounded-2xl bg-slate-100 {{ isset($large) ? 'aspect-[16/10]' : 'aspect-[4/3]' }}">
         <a href="{{ route('spot', $spot) }}" wire:navigate class="block h-full">
             <img src="{{ $spot->image_url }}" alt="{{ $spot->name }}" loading="lazy"
@@ -31,7 +35,7 @@
         </div>
         <p class="flex items-center gap-1 text-sm text-slate-500">
             <flux:icon name="map-pin" class="size-4" />
-            {{ $spot->area }}　/　{{ $spot->scene }}
+            {{ $spot->area }}@if ($sceneNames)　/　{{ implode('・', $sceneNames) }}@endif
         </p>
         @isset($large)
             <p class="line-clamp-2 text-sm leading-relaxed text-slate-600">{{ $spot->description }}</p>

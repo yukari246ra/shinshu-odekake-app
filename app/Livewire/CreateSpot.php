@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Spot;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
@@ -52,8 +54,24 @@ class CreateSpot extends Component
     #[Validate("required", message: "説明は必須です。")]
     public $description = "";
 
-    #[Validate("required", message: "利用シーンは必須です。")]
-    public $scene = "";
+    public array $scenes = [];
+
+    public function rules(): array
+    {
+        return [
+            'scenes' => ['required', 'array', 'min:1'],
+            'scenes.*' => ['string', Rule::in(Spot::SCENES)],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'scenes.required' => '利用シーンは1つ以上選択してください。',
+            'scenes.min' => '利用シーンは1つ以上選択してください。',
+            'scenes.*.in' => '利用シーンの値が正しくありません。',
+        ];
+    }
 
     public function save()
     {
@@ -68,24 +86,29 @@ class CreateSpot extends Component
             ? $this->image2->store('spots', 'public')
             : null;
 
-        Spot::create([
-            'name' => $this->name,
-            'category' => $this->category,
-            'area' => $this->area,
-            'address' => $this->address,
-            'description' => $this->description,
-            'scene' => $this->scene,
+        $spot = DB::transaction(function () use ($imagePath, $imagePath2) {
+            $spot = Spot::create([
+                'name' => $this->name,
+                'category' => $this->category,
+                'area' => $this->area,
+                'address' => $this->address,
+                'description' => $this->description,
 
-            'image_path' => $imagePath,
-            'image_path_2' => $imagePath2,
+                'image_path' => $imagePath,
+                'image_path_2' => $imagePath2,
 
-            // 任意入力の追加項目
-            'business_hours' => $this->business_hours,
-            'closed_days' => $this->closed_days,
-            'phone' => $this->phone,
-            'parking' => $this->parking,
-            'website_url' => $this->website_url,
-        ]);
+                // 任意入力の追加項目
+                'business_hours' => $this->business_hours,
+                'closed_days' => $this->closed_days,
+                'phone' => $this->phone,
+                'parking' => $this->parking,
+                'website_url' => $this->website_url,
+            ]);
+
+            $spot->syncScenes($this->scenes);
+
+            return $spot;
+        });
 
         // 入力欄リセット
         $this->reset([
@@ -94,7 +117,7 @@ class CreateSpot extends Component
             'area',
             'address',
             'description',
-            'scene',
+            'scenes',
             'image',
             'image2',
             'business_hours',
