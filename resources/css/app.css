@@ -27,7 +27,7 @@
 /* ▼ ダークモード（必要最低限） */
 @layer theme {
     .dark {
-        --color-accent: #26AFA4
+        --color-accent: #26AFA4;
         --color-accent-content: #26AFA4;
         --color-accent-foreground: #ffffff;
     }

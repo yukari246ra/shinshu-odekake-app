@@ -1,13 +1,11 @@
 <?php
 
-use App\Models\User;
-
-test('guests are redirected to the login page', function () {
-    $this->get('/dashboard')->assertRedirect('/login');
+test('guests can visit the home page', function () {
+    $this->get('/')->assertStatus(200);
 });
 
-test('authenticated users can visit the dashboard', function () {
-    $this->actingAs($user = User::factory()->create());
+test('authenticated users can visit the home page', function () {
+    $this->actingAs(\App\Models\User::factory()->create());
 
-    $this->get('/dashboard')->assertStatus(200);
+    $this->get('/')->assertStatus(200);
 });

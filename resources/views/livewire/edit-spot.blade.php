@@ -148,19 +148,15 @@
             </flux:button>
 
             {{-- 削除 --}}
-            <form method="POST" action="{{ route('spots.delete', $spot->id) }}">
-                @csrf
-                @method('DELETE')
-
-                <flux:button
-                    wire:click="delete"
-                    variant="danger"
-                    class="h-10 rounded-lg"
-                    onclick="return confirm('本当に削除しますか？');"
-                >
-                    削除する
-                </flux:button>
-            </form>
+            <flux:button
+                type="button"
+                wire:click="delete"
+                wire:confirm="本当に削除しますか？"
+                variant="danger"
+                class="h-10 rounded-lg"
+            >
+                削除する
+            </flux:button>
 
         </div>
 
