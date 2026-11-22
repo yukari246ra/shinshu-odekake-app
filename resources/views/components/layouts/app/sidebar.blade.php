@@ -6,6 +6,20 @@
 
 <body class="min-h-screen bg-white dark:bg-zinc-800">
 
+    @php
+        // 管理者かどうか（ボタンを見せるかどうかの判定。実際の保護は AdminMiddleware などが行う）
+        $isAdmin = auth()->check() && auth()->user()->role === 'admin';
+
+        // スポット詳細画面を開いているとき、そのスポットのID（それ以外は null）
+        $currentSpotId = null;
+        if (request()->routeIs('spot')) {
+            $spotParam = request()->route('spot');
+            $currentSpotId = $spotParam instanceof \Illuminate\Database\Eloquent\Model
+                ? $spotParam->getKey()
+                : $spotParam;
+        }
+    @endphp
+
     <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
@@ -56,6 +70,33 @@
                 </flux:navlist.item>
 
             </flux:navlist.group>
+
+            <!-- ▼ 管理（管理者のみ） -->
+            @if ($isAdmin)
+                <flux:navlist.group :heading="__('管理')" class="grid">
+
+                    <!-- スポットを新規登録 -->
+                    <flux:navlist.item
+                        icon="plus-circle"
+                        :href="route('spots.create')"
+                        :current="request()->routeIs('spots.create')"
+                    >
+                        {{ __('スポットを新規登録') }}
+                    </flux:navlist.item>
+
+                    <!-- このスポットを編集（スポット詳細画面を開いているときだけ） -->
+                    @if ($currentSpotId)
+                        <flux:navlist.item
+                            icon="pencil-square"
+                            :href="route('spots.edit', $currentSpotId)"
+                            :current="request()->routeIs('spots.edit')"
+                        >
+                            {{ __('このスポットを編集') }}
+                        </flux:navlist.item>
+                    @endif
+
+                </flux:navlist.group>
+            @endif
         </flux:navlist>
 
         <flux:spacer />
