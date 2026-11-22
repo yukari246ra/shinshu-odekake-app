@@ -16,6 +16,8 @@ class Spot extends Model
         'area',
         'description',
         'address',
+        'latitude',
+        'longitude',
         'image_path',
         'image_path_2',
         'scene',

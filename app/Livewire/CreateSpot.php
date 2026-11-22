@@ -37,6 +37,10 @@ class CreateSpot extends Component
     public $closed_days;
     public $phone;
 
+    // 位置情報（任意・天気表示に使用）
+    public $latitude = "";
+    public $longitude = "";
+
     // ④ 駐車場情報（任意）
     public $parking;
 
@@ -61,6 +65,8 @@ class CreateSpot extends Component
         return [
             'scenes' => ['required', 'array', 'min:1'],
             'scenes.*' => ['string', Rule::in(Spot::SCENES)],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90', 'required_with:longitude'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180', 'required_with:latitude'],
         ];
     }
 
@@ -70,6 +76,12 @@ class CreateSpot extends Component
             'scenes.required' => '利用シーンは1つ以上選択してください。',
             'scenes.min' => '利用シーンは1つ以上選択してください。',
             'scenes.*.in' => '利用シーンの値が正しくありません。',
+            'latitude.numeric' => '緯度は数値で入力してください。',
+            'latitude.between' => '緯度は -90 から 90 の間で入力してください。',
+            'latitude.required_with' => '緯度と経度は両方入力してください。',
+            'longitude.numeric' => '経度は数値で入力してください。',
+            'longitude.between' => '経度は -180 から 180 の間で入力してください。',
+            'longitude.required_with' => '緯度と経度は両方入力してください。',
         ];
     }
 
@@ -103,6 +115,10 @@ class CreateSpot extends Component
                 'phone' => $this->phone,
                 'parking' => $this->parking,
                 'website_url' => $this->website_url,
+
+                // 空欄のときは空文字ではなく null で保存する
+                'latitude' => filled($this->latitude) ? $this->latitude : null,
+                'longitude' => filled($this->longitude) ? $this->longitude : null,
             ]);
 
             $spot->syncScenes($this->scenes);
@@ -123,6 +139,8 @@ class CreateSpot extends Component
             'business_hours',
             'closed_days',
             'phone',
+            'latitude',
+            'longitude',
             'parking',
             'website_url',
         ]);

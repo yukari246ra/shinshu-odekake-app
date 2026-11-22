@@ -46,6 +46,10 @@ class EditSpot extends Component
     public $phone;
     public $parking;
 
+    // ▼ 位置情報（任意・天気表示に使用）
+    public $latitude = '';
+    public $longitude = '';
+
     // ▼ 外部サイトリンク（任意）※XSS対策済み
     #[Validate('nullable|url:http,https', message: 'URLは http:// または https:// で始まる形式で入力してください。')]
     public $website_url;
@@ -55,6 +59,8 @@ class EditSpot extends Component
         return [
             'scenes' => ['required', 'array', 'min:1'],
             'scenes.*' => ['string', Rule::in(Spot::SCENES)],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90', 'required_with:longitude'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180', 'required_with:latitude'],
         ];
     }
 
@@ -64,6 +70,12 @@ class EditSpot extends Component
             'scenes.required' => '利用シーンは1つ以上選択してください。',
             'scenes.min' => '利用シーンは1つ以上選択してください。',
             'scenes.*.in' => '利用シーンの値が正しくありません。',
+            'latitude.numeric' => '緯度は数値で入力してください。',
+            'latitude.between' => '緯度は -90 から 90 の間で入力してください。',
+            'latitude.required_with' => '緯度と経度は両方入力してください。',
+            'longitude.numeric' => '経度は数値で入力してください。',
+            'longitude.between' => '経度は -180 から 180 の間で入力してください。',
+            'longitude.required_with' => '緯度と経度は両方入力してください。',
         ];
     }
 
@@ -88,6 +100,10 @@ class EditSpot extends Component
         $this->phone = $spot->phone;
         $this->parking = $spot->parking;
         $this->website_url = $spot->website_url;
+
+        // ▼ 位置情報の初期値（未登録なら空欄、登録済みなら 36.3419 のような表示にする）
+        $this->latitude = filled($spot->latitude) ? (string) (float) $spot->latitude : '';
+        $this->longitude = filled($spot->longitude) ? (string) (float) $spot->longitude : '';
     }
 
     public function update()
@@ -120,6 +136,10 @@ class EditSpot extends Component
                 'phone' => $this->phone,
                 'parking' => $this->parking,
                 'website_url' => $this->website_url,
+
+                // ▼ 空欄のときは空文字ではなく null で保存する
+                'latitude' => filled($this->latitude) ? $this->latitude : null,
+                'longitude' => filled($this->longitude) ? $this->longitude : null,
             ]);
 
             // spots.scene は互換性のため変更しない

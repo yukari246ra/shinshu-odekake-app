@@ -4,15 +4,35 @@ namespace App\Livewire;
 
 use App\Models\Favorite;
 use App\Models\Spot;
+use App\Services\WeatherService;
 use Livewire\Component;
 
 class ShowSpot extends Component
 {
     public Spot $spot;
 
+    // 天気情報（取得できなかったときは null）
+    public ?array $weather = null;
+
+    // 天気の読み込みが終わったかどうか
+    public bool $weatherLoaded = false;
+
     public function mount(Spot $spot)
     {
         $this->spot = $spot;
+    }
+
+    // ページ表示のあとに呼ばれる。緯度・経度があるときだけ天気を取得する
+    public function loadWeather(WeatherService $weatherService): void
+    {
+        if (filled($this->spot->latitude) && filled($this->spot->longitude)) {
+            $this->weather = $weatherService->fetch(
+                $this->spot->latitude,
+                $this->spot->longitude
+            );
+        }
+
+        $this->weatherLoaded = true;
     }
 
     // 下の「関連スポット」のカードのハート用

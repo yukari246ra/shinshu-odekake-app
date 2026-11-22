@@ -53,6 +53,35 @@
             <flux:text class="text-red-600">{{ $message }}</flux:text>
         @enderror
 
+        {{-- ③-2 位置情報（任意・天気表示に使用） --}}
+        <div class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <flux:input
+                    type="number"
+                    step="any"
+                    wire:model="latitude"
+                    label="緯度（任意）"
+                    placeholder="例：36.3419"
+                />
+                <flux:input
+                    type="number"
+                    step="any"
+                    wire:model="longitude"
+                    label="経度（任意）"
+                    placeholder="例：137.9013"
+                />
+            </div>
+            <flux:text class="text-sm">
+                天気予報の表示に使います。Googleマップでスポットの場所を右クリックし、表示された数字（例：36.3419, 137.9013）をクリックしてコピーします。カンマの前が緯度、後ろが経度です。
+            </flux:text>
+            @error('latitude')
+                <flux:text class="text-red-600">{{ $message }}</flux:text>
+            @enderror
+            @error('longitude')
+                <flux:text class="text-red-600">{{ $message }}</flux:text>
+            @enderror
+        </div>
+
         <flux:input wire:model="business_hours" label="営業時間" placeholder="例：9:00〜17:00" />
         <flux:input wire:model="closed_days" label="定休日" placeholder="例：火曜日" />
         <flux:input wire:model="phone" label="電話番号" placeholder="例：0263-00-0000" />
