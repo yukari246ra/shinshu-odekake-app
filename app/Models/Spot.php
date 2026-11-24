@@ -34,6 +34,12 @@ class Spot extends Model
         return $this->hasMany(Favorite::class);
     }
 
+    // 口コミとの紐づけ
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
     // 利用シーンとの紐づけ（複数）
     public function sceneSpots(): HasMany
     {

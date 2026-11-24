@@ -233,9 +233,9 @@
             </section>
         </div>
 
-        {{-- 右：基本情報カード --}}
+        {{-- 右：基本情報カードと口コミ --}}
         <aside>
-            <div class="space-y-6 lg:sticky lg:top-6">
+            <div class="space-y-8">
 
                 {{-- 基本情報カード --}}
                 <div class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:bg-zinc-800">
@@ -292,6 +292,9 @@
                         </div>
                     </dl>
                 </div>
+
+                {{-- 口コミ（一覧・投稿・編集・削除） --}}
+                <livewire:spot-reviews :spotId="$spot->id" :key="'reviews-' . $spot->id" />
 
             </div>
         </aside>
